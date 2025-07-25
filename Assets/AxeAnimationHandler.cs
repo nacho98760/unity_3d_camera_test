@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class AxeAnimationHandler : MonoBehaviour
 {
     private Animator animator;
     private string currentAnimation = "";
-    private float chopAnimationLength = 3.125f;
+    private float chopAnimationLength = 1.667f;
+    private float currentChopAnimationTime;
 
     private void Start()
     {
@@ -15,7 +17,12 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(CheckForChop());
+        if (Input.GetMouseButtonDown(0) && currentAnimation != "Chop")
+        {
+            StartCoroutine(Chop());
+        }
+
+        GetCurrentChopAnimationTime();
     }
 
     private void ChangeAnimation(string animation, float crossfade = 0.2f)
@@ -27,13 +34,33 @@ public class AxeAnimationHandler : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckForChop()
+    private IEnumerator Chop()
     {
-        if (Input.GetMouseButtonDown(0) && currentAnimation != "Chop")
+        ChangeAnimation("Chop");
+        yield return new WaitForSeconds(chopAnimationLength);
+        ChangeAnimation("Idle");
+    }
+
+    private void GetCurrentChopAnimationTime()
+    {
+        if (currentAnimation == "Chop")
         {
-            ChangeAnimation("Chop");
-            yield return new WaitForSeconds(chopAnimationLength);
-            ChangeAnimation("Idle");
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+            currentChopAnimationTime = state.normalizedTime * chopAnimationLength;
+        }
+        else
+        {
+            currentChopAnimationTime = 0f;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+        // If currentChopAnimationTime > 0f, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
+        if (currentChopAnimationTime > 0.65f) 
+        {
+            Destroy(other.gameObject);
         }
     }
 }

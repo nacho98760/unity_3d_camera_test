@@ -5,17 +5,18 @@ TagManager:
   serializedVersion: 3
   tags:
   - CubeTag
+  - Trees
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PlayerLayer
   - Water
   - UI
   - floorLayer
-  - 
-  - 
-  - 
+  - ChoppableObjects
+  - AxeLayer
+  - Cubes
   - 
   - 
   - 
