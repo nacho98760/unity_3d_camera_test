@@ -2,9 +2,15 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using UnityEngine.UI;
 
 public class AxeAnimationHandler : MonoBehaviour
 {
+    private TreeSpawningSystem treeSpawningSystem;
+
+    public GameObject treePrefab;
+    public Text treeChoppedText;
+
     private Animator animator;
     private string currentAnimation = "";
     private float chopAnimationLength = 1.667f;
@@ -13,6 +19,9 @@ public class AxeAnimationHandler : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        treeSpawningSystem = gameObject.AddComponent<TreeSpawningSystem>();
+        treeSpawningSystem.treePrefab = treePrefab;
+        treeSpawningSystem.treesChoppedText = treeChoppedText;
     }
 
     private void Update()
@@ -56,11 +65,11 @@ public class AxeAnimationHandler : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {   
+    {
         // If currentChopAnimationTime > 0f, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
-        if (currentChopAnimationTime > 0.65f) 
+        if (currentChopAnimationTime > 0.65f)
         {
-            Destroy(other.gameObject);
+            treeSpawningSystem.DestroyAndChangeTextWhenChopped(other.gameObject);
         }
     }
 }

@@ -1,11 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TreeSpawningSystem : MonoBehaviour
 {
+    public Text treesChoppedText;
     public GameObject treePrefab;
+
     private bool treeAlreadyInQueue = false;
-    
+    private int treesAlreadyChopped = 0;
+
+    private void Start()
+    {
+        treesChoppedText.text = treesAlreadyChopped.ToString() + "/10";
+    }
+
     private void Update()
     {
         if (transform.childCount < 5 && treeAlreadyInQueue == false)
@@ -18,8 +27,19 @@ public class TreeSpawningSystem : MonoBehaviour
     private IEnumerator SpawnTree(GameObject tree)
     {
         yield return new WaitForSeconds(5f);
-        GameObject newTree = Instantiate(tree, new Vector3(Random.Range(-20f, 20f), 0.759f, Random.Range(-15f, 20f)), Quaternion.identity);
+
+        float currentXPos = transform.position.x;
+        float currentZPos = transform.position.z;
+
+        GameObject newTree = Instantiate(tree, new Vector3(Random.Range(currentXPos - 20f, currentXPos + 20f), transform.position.y, Random.Range(currentZPos - 20f, currentZPos + 20f)), Quaternion.identity);
         newTree.transform.parent = transform;
         treeAlreadyInQueue = false;
+    }
+
+    public void DestroyAndChangeTextWhenChopped(GameObject tree)
+    {
+        Destroy(tree);
+        treesAlreadyChopped += 1;
+        treesChoppedText.text = treesAlreadyChopped.ToString() + "/10";
     }
 }
