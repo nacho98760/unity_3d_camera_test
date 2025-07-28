@@ -10,7 +10,6 @@ public class TreeSpawningSystem : MonoBehaviour
     public Text treeChoppedText;
     public GameObject treePrefab;
     public GameObject treeContainer;
-
     private bool treeAlreadyInQueue = false;
     public static int treesAlreadyChopped;
 

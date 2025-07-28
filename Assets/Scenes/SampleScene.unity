@@ -274,8 +274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc21044e96aa084b85958e8acc4ecbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 300
-  sensY: 300
+  sensX: 200
+  sensY: 200
   playerCharacter: {fileID: 2009995660}
 --- !u!1 &410087039
 GameObject:
@@ -1113,11 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128cbc6af5bbc99408ae73b9840e2506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treeSpawningSystem: {fileID: 0}
-  treePrefab: {fileID: 6115875271052616418, guid: ba650ba3ce73f75418dec7ea3def1e49, type: 3}
-  treeChoppedText: {fileID: 2038333264}
-  treeContainer: {fileID: 1352333047}
-  savingSystem: {fileID: 1135249300}
+  treeSpawningSystem: {fileID: 1352333048}
 --- !u!95 &1186115915
 Animator:
   serializedVersion: 7

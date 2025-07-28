@@ -9,11 +9,7 @@ public class AxeAnimationHandler : MonoBehaviour
 {   
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
 
-    public GameObject treePrefab;
-    public Text treeChoppedText;
-    public GameObject treeContainer;
     private AudioSource ChopAudioComponent;
-    public SavingSystem savingSystem;
 
     private Animator animator;
     private string currentAnimation = "";
@@ -23,12 +19,7 @@ public class AxeAnimationHandler : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        treeSpawningSystem = gameObject.AddComponent<TreeSpawningSystem>();
-        treeSpawningSystem.treePrefab = treePrefab;
-        treeSpawningSystem.treeChoppedText = treeChoppedText;
-        treeSpawningSystem.treeContainer = treeContainer;
         ChopAudioComponent = GetComponent<AudioSource>();
-        treeSpawningSystem.savingSystem = savingSystem;
     }
 
     private void Update()
@@ -64,6 +55,7 @@ public class AxeAnimationHandler : MonoBehaviour
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
             currentChopAnimationTime = state.normalizedTime * chopAnimationLength;
+            print(currentChopAnimationTime);
         }
         else
         {
@@ -74,7 +66,7 @@ public class AxeAnimationHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // If currentChopAnimationTime > 0f, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
-        if (currentChopAnimationTime > 0.65f)
+        if (currentChopAnimationTime > 0.65f && currentChopAnimationTime < 1)
         {
             ChopAudioComponent.Play();
             treeSpawningSystem.DestroyAndChangeTextWhenChopped(other.gameObject);
