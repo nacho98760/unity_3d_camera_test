@@ -16,6 +16,8 @@ public class AxeAnimationHandler : MonoBehaviour
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
 
+    private int damagePerHit = 10;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -53,9 +55,7 @@ public class AxeAnimationHandler : MonoBehaviour
         if (currentAnimation == "Chop")
         {
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-
             currentChopAnimationTime = state.normalizedTime * chopAnimationLength;
-            print(currentChopAnimationTime);
         }
         else
         {
@@ -65,11 +65,16 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // If currentChopAnimationTime > 0f, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
+        // If currentChopAnimationTime != null, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
         if (currentChopAnimationTime > 0.65f && currentChopAnimationTime < 1)
         {
             ChopAudioComponent.Play();
-            treeSpawningSystem.DestroyAndChangeTextWhenChopped(other.gameObject);
+            other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
+            
+            if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
+            {
+                treeSpawningSystem.UpdateTextWhenChopped(other.gameObject);
+            }
         }
     }
 }

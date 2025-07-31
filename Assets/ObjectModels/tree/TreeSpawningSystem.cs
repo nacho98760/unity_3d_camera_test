@@ -5,18 +5,18 @@ using UnityEngine.UI;
 public class TreeSpawningSystem : MonoBehaviour
 {
 
-    [SerializeField] public SavingSystem savingSystem;
+    public SavingSystem savingSystem;
 
-    public Text treeChoppedText;
+    public Text amountOfLogsText;
     public GameObject treePrefab;
     public GameObject treeContainer;
     private bool treeAlreadyInQueue = false;
-    public static int treesAlreadyChopped;
+    public static int amountOfLogs;
 
 
     private void Start()
     {
-        treeChoppedText.text = treesAlreadyChopped.ToString() + "/10";
+        amountOfLogsText.text = amountOfLogs.ToString();
     }
 
 
@@ -43,24 +43,21 @@ public class TreeSpawningSystem : MonoBehaviour
     }
 
 
-    public void DestroyAndChangeTextWhenChopped(GameObject tree)
+    public void UpdateTextWhenChopped(GameObject tree)
     {
-        Destroy(tree);
-        treesAlreadyChopped++;
-        print(treesAlreadyChopped);
-        treeChoppedText.text = treesAlreadyChopped.ToString() + "/10";
+        amountOfLogs += 3;
+        amountOfLogsText.text = amountOfLogs.ToString();
         savingSystem.SaveData();
-        print("Saved data from here!");
     }
 
 
     public int GetAmountOfTreesAlreadyChopped()
     {
-        return treesAlreadyChopped;
+        return amountOfLogs;
     }
 
     public void SetAmountOfTreesAlreadyChopped(int amount)
     {
-        treesAlreadyChopped = amount;
+        amountOfLogs = amount;
     }
 }
