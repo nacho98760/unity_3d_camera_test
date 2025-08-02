@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class AxeAnimationHandler : MonoBehaviour
 {   
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
+    [SerializeField] private GameObject InventoryUI;
 
     private AudioSource ChopAudioComponent;
 
@@ -16,7 +17,7 @@ public class AxeAnimationHandler : MonoBehaviour
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
 
-    private int damagePerHit = 10;
+    private float damagePerHit = 10f;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && currentAnimation != "Chop")
+        if (Input.GetMouseButtonDown(0) && currentAnimation != "Chop" && InventoryUI.activeSelf == false)
         {
             StartCoroutine(Chop());
         }
@@ -73,7 +74,7 @@ public class AxeAnimationHandler : MonoBehaviour
             
             if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
             {
-                treeSpawningSystem.UpdateTextWhenChopped(other.gameObject);
+                Destroy(other.gameObject);
             }
         }
     }

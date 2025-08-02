@@ -3,8 +3,8 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
 
-    public int currentHealth;
-    public int maxHealth;
+    public float currentHealth;
+    public float maxHealth;
     public bool isAlive;
 
     void Start()
@@ -19,7 +19,7 @@ public class HealthComponent : MonoBehaviour
     }
 
 
-    public void DamageObject(int damageTaken)
+    public void DamageObject(float damageTaken)
     {
         currentHealth -= damageTaken;
         print(currentHealth);

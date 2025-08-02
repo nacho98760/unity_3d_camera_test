@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] public GameObject InventoryUI;
 
     float movementSpeed = 3.5f;
     float jumpForce = 4f;
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.freezeRotation = true;
     }
 
-    // Update is called once per frame
+    
     private void Update()
     {
 
@@ -46,8 +47,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movementDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-        playerRigidBody.AddForce(movementDirection.normalized * movementSpeed * 10f, ForceMode.Force);
+        if (InventoryUI.activeSelf)
+        {
+            movementDirection = Vector3.zero;
+        }
+        else
+        {
+            movementDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+            playerRigidBody.AddForce(movementDirection.normalized * movementSpeed * 10f, ForceMode.Force);
+        }
     }
 
 
