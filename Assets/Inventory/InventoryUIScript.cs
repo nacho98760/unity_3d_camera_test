@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class InventoryUIScript : MonoBehaviour
 {
+    public InventorySlot[] inventorySlots;
+    public GameObject inventoryItemPrefab;
+
     [SerializeField] public GameObject InventoryUI;
-    [SerializeField] public GameObject GridWithInvSlots;
     public bool isOpen;
 
     void Start()
@@ -23,7 +25,6 @@ public class InventoryUIScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            UpdateInv();
             if (isOpen)
             {
                 InventoryUI.SetActive(false);
@@ -38,8 +39,27 @@ public class InventoryUIScript : MonoBehaviour
     }
 
 
-    public void UpdateInv()
+    public void AddItem(Item item)
     {
-        // ...
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+            
+            InventoryItem itemInSlot = slot.GetComponent<InventoryItem>();
+
+            if (itemInSlot == null)
+            {
+                SpawnNewItem(item, slot);
+                return;
+            }
+
+        }
+    }
+
+    void SpawnNewItem(Item item, InventorySlot slot)
+    {
+        GameObject newItemGameObject = Instantiate(inventoryItemPrefab, slot.transform);
+        InventoryItem inventoryItem = newItemGameObject.GetComponent<InventoryItem>();
+        inventoryItem.InitializeItem(item);
     }
 }

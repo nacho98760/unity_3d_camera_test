@@ -9,7 +9,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         // If there are no items in the current slot, the item that's being dragged takes that place.
         if (transform.childCount == 0)
         {
-            DraggableItem currentItemBeingDragged = eventData.pointerDrag.GetComponent<DraggableItem>();
+            InventoryItem currentItemBeingDragged = eventData.pointerDrag.GetComponent<InventoryItem>();
 
             currentItemBeingDragged.parentAfterDrag = transform;
         }
@@ -17,9 +17,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         // If there is an item in the current slot, it switches positions with the item that's being dragged
         else
         {
-            DraggableItem currentItemBeingDragged = eventData.pointerDrag.GetComponent<DraggableItem>();
+            InventoryItem currentItemBeingDragged = eventData.pointerDrag.GetComponent<InventoryItem>();
 
-            DraggableItem currentItemInSlot = transform.GetChild(0).gameObject.GetComponent<DraggableItem>();
+            InventoryItem currentItemInSlot = transform.GetChild(0).gameObject.GetComponent<InventoryItem>();
 
             currentItemInSlot.transform.SetParent(currentItemBeingDragged.parentAfterDrag);
             currentItemBeingDragged.parentAfterDrag = transform;

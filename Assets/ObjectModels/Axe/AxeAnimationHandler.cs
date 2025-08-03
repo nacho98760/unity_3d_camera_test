@@ -17,6 +17,10 @@ public class AxeAnimationHandler : MonoBehaviour
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
 
+    // ----------------------------Temp---------------------------------
+    private bool chopCooldownActive = false;
+    // ----------------------------Temp---------------------------------
+
     private float damagePerHit = 10f;
 
     private void Start()
@@ -67,7 +71,7 @@ public class AxeAnimationHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // If currentChopAnimationTime != null, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
-        if (currentChopAnimationTime > 0.65f && currentChopAnimationTime < 1)
+        if (currentChopAnimationTime > 0.65f && currentChopAnimationTime < 0.85f)
         {
             ChopAudioComponent.Play();
             other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);

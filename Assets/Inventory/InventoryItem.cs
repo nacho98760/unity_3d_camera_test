@@ -2,15 +2,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public RawImage image; //Item texture
-    public string ObjectType;
-    public Transform parentAfterDrag;
 
+    public RawImage image; //Item texture
+    public string itemType;
+
+    [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public Item item;
+
+
+    public void InitializeItem(Item newItem)
+    {
+        item = newItem;
+        image.texture = newItem.image;
+
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("Begin Drag");
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
@@ -24,7 +33,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("End Drag");
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
     }
