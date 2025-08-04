@@ -10,6 +10,10 @@ public class AxeAnimationHandler : MonoBehaviour
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
     [SerializeField] private GameObject InventoryUI;
 
+    [SerializeField] private InventoryUIScript inventoryUIScript;
+
+    public Item logItem;
+
     private AudioSource ChopAudioComponent;
 
     private Animator animator;
@@ -17,11 +21,8 @@ public class AxeAnimationHandler : MonoBehaviour
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
 
-    // ----------------------------Temp---------------------------------
-    private bool chopCooldownActive = false;
-    // ----------------------------Temp---------------------------------
-
     private float damagePerHit = 10f;
+
 
     private void Start()
     {
@@ -79,6 +80,7 @@ public class AxeAnimationHandler : MonoBehaviour
             if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
             {
                 Destroy(other.gameObject);
+                inventoryUIScript.AddItem(logItem);
             }
         }
     }

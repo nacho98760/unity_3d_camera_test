@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a8468458478e044b5579a37ed7c0a3, type: 3}
   m_Name: Log
   m_EditorClassIdentifier: 
+  itemName: Log
   image: {fileID: 2800000, guid: b3d5265fecf2e2d48ab8470f90a51f88, type: 3}
   type: 1
   actionType: 0
