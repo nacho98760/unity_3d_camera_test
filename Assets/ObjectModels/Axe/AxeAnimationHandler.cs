@@ -20,8 +20,9 @@ public class AxeAnimationHandler : MonoBehaviour
     private string currentAnimation = "";
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
+    private bool canChop = true;
 
-    private float damagePerHit = 10f;
+    [SerializeField] private float damagePerHit = 10f;
 
 
     private void Start()
@@ -72,8 +73,9 @@ public class AxeAnimationHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // If currentChopAnimationTime != null, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
-        if (currentChopAnimationTime > 0.65f && currentChopAnimationTime < 0.85f)
+        if ((currentChopAnimationTime > 0.65f && currentChopAnimationTime < 0.95f) && canChop)
         {
+            StartCoroutine(ChopCooldown());
             ChopAudioComponent.Play();
             other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
             
@@ -83,5 +85,12 @@ public class AxeAnimationHandler : MonoBehaviour
                 inventoryUIScript.AddItem(logItem);
             }
         }
+    }
+
+    private IEnumerator ChopCooldown()
+    {
+        canChop = false;
+        yield return new WaitForSeconds(1);
+        canChop = true;
     }
 }

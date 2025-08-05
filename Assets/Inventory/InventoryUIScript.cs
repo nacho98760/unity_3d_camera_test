@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -8,13 +9,16 @@ public class InventoryUIScript : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public bool ItemAlreadyPlaced = false;
 
-    [SerializeField] public GameObject InventoryUI;
+    public GameObject InventoryUI;
     public bool isOpen;
+
+    public Item[] starterItems;
 
     void Start()
     {
         InventoryUI.SetActive(false);
         isOpen = false;
+        AddStarterItems(starterItems);
     }
 
 
@@ -87,5 +91,14 @@ public class InventoryUIScript : MonoBehaviour
         GameObject newItemGameObject = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGameObject.GetComponent<InventoryItem>();
         inventoryItem.InitializeItem(item);
+    }
+
+
+    void AddStarterItems(Item[] items)
+    {
+        foreach (Item starterItem in items)
+        {
+            AddItem(starterItem);
+        }
     }
 }

@@ -22,6 +22,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.texture = newItem.image;
         amount = 1;
         amountText.text = amount.ToString();
+
+        if (item.stackable == false)
+        {
+            amountText.text = "";
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
