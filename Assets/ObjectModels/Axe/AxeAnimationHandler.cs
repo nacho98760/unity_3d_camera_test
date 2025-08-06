@@ -93,4 +93,10 @@ public class AxeAnimationHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         canChop = true;
     }
+
+
+    private void ChangeAxeVisibilityIfEquipped()
+    {
+
+    }
 }

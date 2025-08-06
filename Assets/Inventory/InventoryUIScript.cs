@@ -1,13 +1,23 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class InventoryUIScript : MonoBehaviour
 {
+    
+    private Color defaultColor = new Color(1f, 0.949664f, 0.8066038f);
+    private Color slotWithEquippedItemColor = new Color(1f, 0.86f, 0.47f);
+
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
     public bool ItemAlreadyPlaced = false;
+
+    public GameObject Toolbar;
+    public InventorySlot[] inventorySlotsOnToolbar;
+    public InventorySlot currentlyEquippedSlot;
 
     public GameObject InventoryUI;
     public bool isOpen;
@@ -19,16 +29,24 @@ public class InventoryUIScript : MonoBehaviour
         InventoryUI.SetActive(false);
         isOpen = false;
         AddStarterItems(starterItems);
+
+        inventorySlotsOnToolbar = new InventorySlot[Toolbar.transform.childCount];
+
+        for (int i = 0; i < Toolbar.transform.childCount; i++)
+        {
+            inventorySlotsOnToolbar[i] = Toolbar.transform.GetChild(i).GetComponent<InventorySlot>();
+        }
     }
 
 
     private void Update()
     {
-        checkInvState();
+        EquipSlotBasedOnKeyPressed();
+        CheckInvState();
     }
 
 
-    private void checkInvState()
+    private void CheckInvState()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -99,6 +117,55 @@ public class InventoryUIScript : MonoBehaviour
         foreach (Item starterItem in items)
         {
             AddItem(starterItem);
+        }
+    }
+
+    public void ChangeEquippedSlotColorAndResetThePrevious(int slotPosition)
+    {
+        if (currentlyEquippedSlot != null)
+        {
+            currentlyEquippedSlot.GetComponent<Image>().color = defaultColor;
+        }
+
+        currentlyEquippedSlot = inventorySlotsOnToolbar[slotPosition];
+        currentlyEquippedSlot.GetComponent<Image>().color = slotWithEquippedItemColor;
+    }
+
+    public void EquipSlotBasedOnKeyPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(0);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(1);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(2);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(3);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(4);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(5);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ChangeEquippedSlotColorAndResetThePrevious(6);
         }
     }
 }

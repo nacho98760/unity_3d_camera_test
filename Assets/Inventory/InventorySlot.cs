@@ -1,9 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
+
     public void OnDrop(PointerEventData eventData)
     {
         // If there are no items in the current slot, the item that's being dragged takes that place.
