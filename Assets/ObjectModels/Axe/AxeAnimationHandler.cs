@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.UI;
@@ -17,7 +18,7 @@ public class AxeAnimationHandler : MonoBehaviour
     private AudioSource ChopAudioComponent;
 
     private Animator animator;
-    private string currentAnimation = "";
+    public string currentAnimation = "";
     private float chopAnimationLength = 1.667f;
     private float currentChopAnimationTime;
     private bool canChop = true;
@@ -33,15 +34,16 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && currentAnimation != "Chop" && InventoryUI.activeSelf == false)
+        if (Input.GetMouseButtonDown(0) && gameObject.activeSelf && currentAnimation != "Chop" && InventoryUI.activeSelf == false)
         {
             StartCoroutine(Chop());
         }
 
+        print(currentAnimation);
         GetCurrentChopAnimationTime();
     }
 
-    private void ChangeAnimation(string animation, float crossfade = 0.2f)
+    public void ChangeAnimation(string animation, float crossfade = 0.2f)
     {
         if (currentAnimation != animation)
         {
@@ -93,10 +95,5 @@ public class AxeAnimationHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         canChop = true;
     }
-
-
-    private void ChangeAxeVisibilityIfEquipped()
-    {
-
-    }
 }
+

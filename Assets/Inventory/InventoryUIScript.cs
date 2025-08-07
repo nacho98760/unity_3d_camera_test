@@ -15,6 +15,8 @@ public class InventoryUIScript : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public bool ItemAlreadyPlaced = false;
 
+    public AxeAnimationHandler Axe;
+
     public GameObject Toolbar;
     public InventorySlot[] inventorySlotsOnToolbar;
     public InventorySlot currentlyEquippedSlot;
@@ -129,6 +131,7 @@ public class InventoryUIScript : MonoBehaviour
 
         currentlyEquippedSlot = inventorySlotsOnToolbar[slotPosition];
         currentlyEquippedSlot.GetComponent<Image>().color = slotWithEquippedItemColor;
+        ChangeAxeVisibilityIfEquipped();
     }
 
     public void EquipSlotBasedOnKeyPressed()
@@ -167,5 +170,18 @@ public class InventoryUIScript : MonoBehaviour
         {
             ChangeEquippedSlotColorAndResetThePrevious(6);
         }
+    }
+
+
+    public void ChangeAxeVisibilityIfEquipped()
+    {
+        if (currentlyEquippedSlot.transform.childCount == 0 || currentlyEquippedSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName != "Axe")
+        {
+            Axe.transform.gameObject.SetActive(false);
+            return;
+        }
+
+        Axe.transform.gameObject.SetActive(true);
+        Axe.ChangeAnimation("Idle");
     }
 }
