@@ -39,7 +39,6 @@ public class AxeAnimationHandler : MonoBehaviour
             StartCoroutine(Chop());
         }
 
-        print(currentAnimation);
         GetCurrentChopAnimationTime();
     }
 

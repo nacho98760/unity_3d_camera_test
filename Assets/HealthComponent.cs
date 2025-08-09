@@ -22,6 +22,7 @@ public class HealthComponent : MonoBehaviour
     public void DamageObject(float damageTaken)
     {
         currentHealth -= damageTaken;
+        print("Current health: " +  currentHealth.ToString());
         print(currentHealth);
 
         if (currentHealth <= 0)

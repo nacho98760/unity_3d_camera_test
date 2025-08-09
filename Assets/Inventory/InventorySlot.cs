@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
+    public InventoryUIScript inventoryUIScript;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -14,6 +16,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryItem currentItemBeingDragged = eventData.pointerDrag.GetComponent<InventoryItem>();
 
             currentItemBeingDragged.parentAfterDrag = transform;
+
+            inventoryUIScript.ChangeAxeVisibilityIfEquipped();
+            CheckCurrentEquippedItem(currentItemBeingDragged);
         }
 
         // If there is an item in the current slot, it switches positions with the item that's being dragged
@@ -25,6 +30,17 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
             currentItemInSlot.transform.SetParent(currentItemBeingDragged.parentAfterDrag);
             currentItemBeingDragged.parentAfterDrag = transform;
+
+            inventoryUIScript.ChangeAxeVisibilityIfEquipped();
+            CheckCurrentEquippedItem(currentItemBeingDragged);
+        }
+    }
+
+    public void CheckCurrentEquippedItem(InventoryItem currentItem)
+    {
+        if (currentItem.itemName == "Axe" && inventoryUIScript.currentlyEquippedSlot == transform.gameObject.GetComponent<InventorySlot>())
+        {
+            inventoryUIScript.Axe.transform.gameObject.SetActive(true);
         }
     }
 }

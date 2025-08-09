@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -237,6 +241,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -347,6 +355,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -457,6 +469,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1690703129766753759, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_Name
       value: 2
@@ -718,6 +734,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -1125,6 +1145,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -1235,6 +1259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -1361,6 +1389,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1690703129766753759, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_Name
       value: InvSlot (1)
@@ -1790,6 +1822,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -1895,6 +1931,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1690703129766753759, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_Name
       value: InvSlot (9)
@@ -2024,6 +2064,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -2145,6 +2189,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -2608,6 +2656,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -2734,6 +2786,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -2844,6 +2900,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3099,6 +3159,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3204,6 +3268,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3325,6 +3393,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3435,6 +3507,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3556,6 +3632,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3677,6 +3757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -3836,6 +3920,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -4325,6 +4413,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_Padding.m_Left
       value: 0
@@ -4430,6 +4522,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -4700,6 +4796,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -4821,6 +4921,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835524457}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -5105,6 +5209,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70
@@ -5386,6 +5494,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588131615}
     m_Modifications:
+    - target: {fileID: 1070399131478936622, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
+      propertyPath: inventoryUIScript
+      value: 
+      objectReference: {fileID: 488149069}
     - target: {fileID: 1423668635085479806, guid: 0810912a282444d41bbcc6f15ed0882b, type: 3}
       propertyPath: m_CellSize.x
       value: 70

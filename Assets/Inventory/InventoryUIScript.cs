@@ -175,7 +175,13 @@ public class InventoryUIScript : MonoBehaviour
 
     public void ChangeAxeVisibilityIfEquipped()
     {
-        if (currentlyEquippedSlot.transform.childCount == 0 || currentlyEquippedSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName != "Axe")
+        if (currentlyEquippedSlot.transform.childCount == 0)
+        {
+            Axe.transform.gameObject.SetActive(false);
+            return;
+        }
+
+        if (currentlyEquippedSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName != "Axe")
         {
             Axe.transform.gameObject.SetActive(false);
             return;
@@ -185,3 +191,5 @@ public class InventoryUIScript : MonoBehaviour
         Axe.ChangeAnimation("Idle");
     }
 }
+
+
