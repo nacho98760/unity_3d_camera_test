@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
+[System.Serializable]
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventoryUIScript inventoryUIScript;
@@ -41,6 +42,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if (currentItem.itemName == "Axe" && inventoryUIScript.currentlyEquippedSlot == transform.gameObject.GetComponent<InventorySlot>())
         {
             inventoryUIScript.Axe.transform.gameObject.SetActive(true);
+        }
+    }
+
+    public bool HasAnInventoryItem()
+    {
+        if (transform.childCount > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

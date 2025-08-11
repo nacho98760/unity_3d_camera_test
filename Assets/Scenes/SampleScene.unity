@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15c786e4ea2cd84b902f6fa0ebc4b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savingSystem: {fileID: 1135249300}
   inventorySlots:
   - {fileID: 1962411561}
   - {fileID: 1966464300}
@@ -2437,7 +2438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538251bf798e98747aef0eb3b454adbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryUIScript: {fileID: 488149069}
   treeSpawningSystem: {fileID: 1352333048}
+  InvItemPrefab: {fileID: 4550076952460767921, guid: e43866999e927c047a0987487d2000f1, type: 3}
+  AxeTexture: {fileID: 2800000, guid: c252c8c07154cdf4a900ec4e65da0155, type: 3}
+  LogTexture: {fileID: 2800000, guid: b3d5265fecf2e2d48ab8470f90a51f88, type: 3}
 --- !u!4 &1135249301
 Transform:
   m_ObjectHideFlags: 0

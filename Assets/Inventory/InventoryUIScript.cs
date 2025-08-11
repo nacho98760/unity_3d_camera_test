@@ -5,9 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+
+[System.Serializable]
 public class InventoryUIScript : MonoBehaviour
 {
-    
+    public SavingSystem savingSystem;
+
     private Color defaultColor = new Color(1f, 0.949664f, 0.8066038f);
     private Color slotWithEquippedItemColor = new Color(1f, 0.86f, 0.47f);
 
@@ -30,7 +33,6 @@ public class InventoryUIScript : MonoBehaviour
     {
         InventoryUI.SetActive(false);
         isOpen = false;
-        AddStarterItems(starterItems);
 
         inventorySlotsOnToolbar = new InventorySlot[Toolbar.transform.childCount];
 
@@ -40,13 +42,11 @@ public class InventoryUIScript : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
         EquipSlotBasedOnKeyPressed();
         CheckInvState();
     }
-
 
     private void CheckInvState()
     {
@@ -68,6 +68,7 @@ public class InventoryUIScript : MonoBehaviour
 
     public void AddItem(Item item)
     {
+        print(inventorySlots.Length);
         // We check if there's already an instance of that item placed on any slot
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -114,6 +115,8 @@ public class InventoryUIScript : MonoBehaviour
     }
 
 
+    // ---------------------Check---------------------
+    /*
     void AddStarterItems(Item[] items)
     {
         foreach (Item starterItem in items)
@@ -121,6 +124,8 @@ public class InventoryUIScript : MonoBehaviour
             AddItem(starterItem);
         }
     }
+    */
+    // ---------------------Check---------------------
 
     public void ChangeEquippedSlotColorAndResetThePrevious(int slotPosition)
     {
