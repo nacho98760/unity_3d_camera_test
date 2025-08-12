@@ -25,8 +25,7 @@ public class AxeAnimationHandler : MonoBehaviour
 
     [SerializeField] private float damagePerHit = 10f;
 
-
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         ChopAudioComponent = GetComponent<AudioSource>();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -40,6 +41,9 @@ public class InventoryUIScript : MonoBehaviour
         {
             inventorySlotsOnToolbar[i] = Toolbar.transform.GetChild(i).GetComponent<InventorySlot>();
         }
+
+        ChangeEquippedSlotColorAndResetThePrevious(0); // First slot on toolbar
+        StartCoroutine(AddStarterItems(starterItems));
     }
 
     private void Update()
@@ -114,18 +118,37 @@ public class InventoryUIScript : MonoBehaviour
         inventoryItem.InitializeItem(item);
     }
 
-
-    // ---------------------Check---------------------
-    /*
-    void AddStarterItems(Item[] items)
+    bool CheckIfItemIsAlreadyOnInventory(Item item)
     {
+        bool itemFound = false;
+
+        foreach (InventorySlot slot in inventorySlots)
+        {
+            if (slot.HasAnInventoryItem())
+            {
+                if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
+                {
+                    itemFound = true;
+                    break;
+                }
+            }
+        }
+
+        return itemFound;
+    }
+
+    IEnumerator AddStarterItems(Item[] items)
+    {
+        yield return null;
+
         foreach (Item starterItem in items)
         {
-            AddItem(starterItem);
+            if (CheckIfItemIsAlreadyOnInventory(starterItem) == false)
+            {
+                AddItem(starterItem);
+            }
         }
     }
-    */
-    // ---------------------Check---------------------
 
     public void ChangeEquippedSlotColorAndResetThePrevious(int slotPosition)
     {
@@ -136,7 +159,8 @@ public class InventoryUIScript : MonoBehaviour
 
         currentlyEquippedSlot = inventorySlotsOnToolbar[slotPosition];
         currentlyEquippedSlot.GetComponent<Image>().color = slotWithEquippedItemColor;
-        ChangeAxeVisibilityIfEquipped();
+        Axe.transform.gameObject.SetActive(CheckIfAxeIsEquipped());
+        CheckAxeAnimationState(CheckIfAxeIsEquipped());
     }
 
     public void EquipSlotBasedOnKeyPressed()
@@ -178,23 +202,35 @@ public class InventoryUIScript : MonoBehaviour
     }
 
 
-    public void ChangeAxeVisibilityIfEquipped()
+    public bool CheckIfAxeIsEquipped()
     {
-        if (currentlyEquippedSlot.transform.childCount == 0)
+        bool axeFoundOnSlot = false;
+
+        foreach (InventorySlot slot in inventorySlots)
         {
-            Axe.transform.gameObject.SetActive(false);
-            return;
+            if (slot.HasAnInventoryItem())
+            {
+                if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
+                {
+                    if (currentlyEquippedSlot == slot)
+                    {
+                        axeFoundOnSlot = true;
+                    }
+                }
+            }
         }
 
-        if (currentlyEquippedSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName != "Axe")
-        {
-            Axe.transform.gameObject.SetActive(false);
-            return;
-        }
-
-        Axe.transform.gameObject.SetActive(true);
-        Axe.ChangeAnimation("Idle");
+        return axeFoundOnSlot;
     }
+
+    public void CheckAxeAnimationState(bool axeWasFound)
+    {
+        if (axeWasFound)
+        {
+            Axe.ChangeAnimation("Idle");
+        }
+    }
+
 }
 
 

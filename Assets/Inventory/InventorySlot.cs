@@ -18,7 +18,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
             currentItemBeingDragged.parentAfterDrag = transform;
 
-            inventoryUIScript.ChangeAxeVisibilityIfEquipped();
+            inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
             CheckCurrentEquippedItem(currentItemBeingDragged);
         }
 
@@ -32,7 +32,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             currentItemInSlot.transform.SetParent(currentItemBeingDragged.parentAfterDrag);
             currentItemBeingDragged.parentAfterDrag = transform;
 
-            inventoryUIScript.ChangeAxeVisibilityIfEquipped();
+            inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
             CheckCurrentEquippedItem(currentItemBeingDragged);
         }
     }
