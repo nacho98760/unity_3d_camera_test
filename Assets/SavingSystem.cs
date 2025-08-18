@@ -35,7 +35,19 @@ public class SavingSystem : MonoBehaviour
         newInvItem.itemName = itemName;
         SetItemTexture(newInvItem, itemName);
         newInvItem.amount = itemAmount;
-        newInvItem.amountText.text = itemAmount.ToString();
+        newInvItem.amountText.text = ChangeVisibilityBasedOnAmount(itemAmount);
+    }
+
+    public string ChangeVisibilityBasedOnAmount(int amount)
+    {
+        if (amount > 1)
+        {
+            return amount.ToString();
+        }
+        else
+        {
+            return "";
+        }
     }
 
     public void SetItemTexture(InventoryItem item, string? itemName)

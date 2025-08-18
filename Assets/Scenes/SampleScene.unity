@@ -2440,6 +2440,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUIScript: {fileID: 488149069}
   treeSpawningSystem: {fileID: 1352333048}
+  itemList:
+  - {fileID: 11400000, guid: 29b6f4f5e1edc9143a54fd4473d86843, type: 2}
+  - {fileID: 11400000, guid: 88177d605a8bea04aba2fca3a55acc50, type: 2}
   InvItemPrefab: {fileID: 4550076952460767921, guid: e43866999e927c047a0987487d2000f1, type: 3}
   AxeTexture: {fileID: 2800000, guid: c252c8c07154cdf4a900ec4e65da0155, type: 3}
   LogTexture: {fileID: 2800000, guid: b3d5265fecf2e2d48ab8470f90a51f88, type: 3}

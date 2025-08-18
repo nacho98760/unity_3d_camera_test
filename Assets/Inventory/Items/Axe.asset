@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   itemName: Axe
+  amountToAddOnInv: 1
   image: {fileID: 2800000, guid: c252c8c07154cdf4a900ec4e65da0155, type: 3}
   type: 0
   actionType: 1

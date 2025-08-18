@@ -82,7 +82,7 @@ public class AxeAnimationHandler : MonoBehaviour
             if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
             {
                 Destroy(other.gameObject);
-                inventoryUIScript.AddItem(logItem);
+                inventoryUIScript.AddItem(logItem, logItem.amountToAddOnInv);
             }
         }
     }

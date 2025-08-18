@@ -10,6 +10,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class InventoryUIScript : MonoBehaviour
 {
+
     public SavingSystem savingSystem;
 
     private Color defaultColor = new Color(1f, 0.949664f, 0.8066038f);
@@ -70,9 +71,8 @@ public class InventoryUIScript : MonoBehaviour
     }
 
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, int itemAmount)
     {
-        print(inventorySlots.Length);
         // We check if there's already an instance of that item placed on any slot
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -85,7 +85,7 @@ public class InventoryUIScript : MonoBehaviour
 
                 if (inventoryItem.itemName == item.itemName)
                 {
-                    inventoryItem.amount += 1;
+                    inventoryItem.amount += itemAmount;
                     inventoryItem.amountText.text = inventoryItem.amount.ToString();
                     ItemAlreadyPlaced = true;
                     return;
@@ -145,7 +145,7 @@ public class InventoryUIScript : MonoBehaviour
         {
             if (CheckIfItemIsAlreadyOnInventory(starterItem) == false)
             {
-                AddItem(starterItem);
+                AddItem(starterItem, starterItem.amountToAddOnInv);
             }
         }
     }

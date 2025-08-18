@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Log
   m_EditorClassIdentifier: 
   itemName: Log
+  amountToAddOnInv: 3
   image: {fileID: 2800000, guid: b3d5265fecf2e2d48ab8470f90a51f88, type: 3}
   type: 1
   actionType: 0
