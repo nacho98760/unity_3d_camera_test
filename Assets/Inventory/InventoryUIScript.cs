@@ -43,7 +43,6 @@ public class InventoryUIScript : MonoBehaviour
             inventorySlotsOnToolbar[i] = Toolbar.transform.GetChild(i).GetComponent<InventorySlot>();
         }
 
-        ChangeEquippedSlotColorAndResetThePrevious(0); // First slot on toolbar
         StartCoroutine(AddStarterItems(starterItems));
     }
 
@@ -104,18 +103,18 @@ public class InventoryUIScript : MonoBehaviour
 
                 if (slot.transform.childCount == 0)
                 {
-                    SpawnNewItem(item, slot);
+                    SpawnNewItem(item, slot, 1);
                     return;
                 }
             }
         }
     }
 
-    void SpawnNewItem(Item item, InventorySlot slot)
+    public void SpawnNewItem(Item item, InventorySlot slot, int initialAmount)
     {
         GameObject newItemGameObject = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGameObject.GetComponent<InventoryItem>();
-        inventoryItem.InitializeItem(item);
+        inventoryItem.InitializeItem(item, initialAmount);
     }
 
     bool CheckIfItemIsAlreadyOnInventory(Item item)

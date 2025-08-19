@@ -17,12 +17,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [HideInInspector] public Item item;
 
 
-    public void InitializeItem(Item newItem)
+    public void InitializeItem(Item newItem, int initialAmount)
     {
         item = newItem;
         itemName = newItem.itemName;
         image.texture = newItem.image;
-        amount = 1;
+        amount = initialAmount;
         amountText.text = amount.ToString();
 
         if (item.stackable == false)

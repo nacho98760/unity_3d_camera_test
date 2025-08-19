@@ -1,6 +1,7 @@
 #nullable enable
 
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class SavingSystem : MonoBehaviour
     public InventoryUIScript inventoryUIScript;
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
 
+    public Item[] itemList;
     public InventoryItem InvItemPrefab;
     public Texture2D AxeTexture;
     public Texture2D LogTexture;
@@ -30,36 +32,22 @@ public class SavingSystem : MonoBehaviour
             return;
         }
 
-        InventoryItem newInvItem = Instantiate(InvItemPrefab, invSlot.transform);
-
-        newInvItem.itemName = itemName;
-        SetItemTexture(newInvItem, itemName);
-        newInvItem.amount = itemAmount;
-        newInvItem.amountText.text = ChangeVisibilityBasedOnAmount(itemAmount);
+        Item itemObject = GetItemObjectByName(itemName);
+        inventoryUIScript.SpawnNewItem(itemObject, invSlot, itemAmount);
     }
 
-    public string ChangeVisibilityBasedOnAmount(int amount)
+    public Item? GetItemObjectByName(string itemName)
     {
-        if (amount > 1)
+        Item? itemFound = null;
+        foreach (Item item in itemList)
         {
-            return amount.ToString();
+            if (item.name == itemName)
+            {
+                itemFound = item;
+            }
         }
-        else
-        {
-            return "";
-        }
-    }
 
-    public void SetItemTexture(InventoryItem item, string? itemName)
-    {
-        if (itemName == "Axe") 
-        {
-            item.image.texture = AxeTexture;
-        }
-        else if (itemName == "Log")
-        {
-            item.image.texture = LogTexture;
-        }
+        return itemFound;
     }
 
 
@@ -198,6 +186,8 @@ public class SavingSystem : MonoBehaviour
         SetItemData(inventoryUIScript.inventorySlots[25], model.InvItem19Name, model.InvItem19Amount);
         SetItemData(inventoryUIScript.inventorySlots[26], model.InvItem20Name, model.InvItem20Amount);
         SetItemData(inventoryUIScript.inventorySlots[27], model.InvItem21Name, model.InvItem21Amount);
+
+        inventoryUIScript.ChangeEquippedSlotColorAndResetThePrevious(0);
     }
 }
 
