@@ -123,13 +123,13 @@ public class InventoryUIScript : MonoBehaviour
 
         foreach (InventorySlot slot in inventorySlots)
         {
-            if (slot.HasAnInventoryItem())
+            if (slot.HasAnInventoryItem() == false)
+                continue;
+
+            if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
             {
-                if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
-                {
-                    itemFound = true;
-                    break;
-                }
+                itemFound = true;
+                break;
             }
         }
 
@@ -204,17 +204,22 @@ public class InventoryUIScript : MonoBehaviour
     public bool CheckIfAxeIsEquipped()
     {
         bool axeFoundOnSlot = false;
-
+        int counter = 0;
         foreach (InventorySlot slot in inventorySlots)
         {
-            if (slot.HasAnInventoryItem())
+            print(counter);
+            counter++;
+
+            if (slot.HasAnInventoryItem() == false)
+                continue;
+
+
+            if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
             {
-                if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
+                if (currentlyEquippedSlot == slot)
                 {
-                    if (currentlyEquippedSlot == slot)
-                    {
-                        axeFoundOnSlot = true;
-                    }
+                    axeFoundOnSlot = true;
+                    break;
                 }
             }
         }

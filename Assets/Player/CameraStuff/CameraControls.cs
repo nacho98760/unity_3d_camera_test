@@ -5,8 +5,8 @@ public class CameraControls : MonoBehaviour
 
     [SerializeField] private GameObject InventoryUI;
 
-    public float sensX;
-    public float sensY;
+    float sensX = 400;
+    float sensY = 400;
 
     public GameObject playerCharacter;
 
@@ -37,8 +37,8 @@ public class CameraControls : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+            float mouseX = Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY * Time.deltaTime;
 
             yRotation += mouseX;
             xRotation -= mouseY;
