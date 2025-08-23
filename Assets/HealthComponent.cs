@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-
+    public event Action<float, float> OnObjectHit;
     public float currentHealth;
     public float maxHealth;
-    public bool isAlive;
+    public bool isAlive = false;
 
     void Start()
     {
@@ -13,22 +14,19 @@ public class HealthComponent : MonoBehaviour
         isAlive = true;
     }
 
-    void Update()
-    {
-        
-    }
-
 
     public void DamageObject(float damageTaken)
     {
         currentHealth -= damageTaken;
+
+        OnObjectHit?.Invoke(currentHealth, maxHealth);
+
         print("Current health: " +  currentHealth.ToString());
         print(currentHealth);
 
         if (currentHealth <= 0)
         {
             isAlive = false;
-            Destroy(gameObject);
         }
     }
 }

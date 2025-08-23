@@ -5,8 +5,8 @@ public class CameraControls : MonoBehaviour
 
     [SerializeField] private GameObject InventoryUI;
 
-    float sensX = 400;
-    float sensY = 400;
+    float sensX = 250;
+    float sensY = 250;
 
     public GameObject playerCharacter;
 
@@ -27,10 +27,11 @@ public class CameraControls : MonoBehaviour
 
     void checkForCursorState()
     {
-        if (InventoryUI.activeSelf)
+        if (InventoryUI.activeSelf || playerCharacter.activeSelf == false)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
         }
         else
         {

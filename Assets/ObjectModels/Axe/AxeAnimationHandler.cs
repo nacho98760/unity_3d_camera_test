@@ -25,6 +25,10 @@ public class AxeAnimationHandler : MonoBehaviour
 
     [SerializeField] private float damagePerHit = 10f;
 
+    public GameObject playerCameraHolder;
+    public Text playerHealth;
+    public Canvas playerDeathCanvas;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -39,6 +43,11 @@ public class AxeAnimationHandler : MonoBehaviour
         }
 
         GetCurrentChopAnimationTime();
+    }
+
+    private void OnEnable()
+    {
+        
     }
 
     public void ChangeAnimation(string animation, float crossfade = 0.2f)
@@ -77,14 +86,35 @@ public class AxeAnimationHandler : MonoBehaviour
         {
             StartCoroutine(ChopCooldown());
             ChopAudioComponent.Play();
+
             other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
-            
+
+            transform.root.gameObject.GetComponent<HealthComponent>().OnObjectHit += ChangePlayerHealthText;
+            transform.root.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
+
+
+            if (transform.root.gameObject.GetComponent<HealthComponent>().isAlive == false)
+            {
+                playerDeathCanvas.gameObject.SetActive(true);
+                transform.root.gameObject.GetComponent<HealthComponent>().OnObjectHit -= ChangePlayerHealthText;
+
+                transform.root.gameObject.SetActive(false);
+            }
+
             if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
             {
-                Destroy(other.gameObject);
                 inventoryUIScript.AddItem(logItem, logItem.amountToAddOnInv);
+                Destroy(other.gameObject);
+              
             }
         }
+    }
+
+
+    private void ChangePlayerHealthText(float currentHealth, float maxHealth)
+    {
+        playerHealth.text = currentHealth.ToString() + "/" + maxHealth.ToString();
+        print(currentHealth);
     }
 
     private IEnumerator ChopCooldown()
