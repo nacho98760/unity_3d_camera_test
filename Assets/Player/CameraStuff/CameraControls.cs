@@ -8,7 +8,7 @@ public class CameraControls : MonoBehaviour
     float sensX = 250;
     float sensY = 250;
 
-    public GameObject playerCharacter;
+    public PlayerMovement player;
 
     float xRotation;
     float yRotation;
@@ -27,11 +27,10 @@ public class CameraControls : MonoBehaviour
 
     void checkForCursorState()
     {
-        if (InventoryUI.activeSelf || playerCharacter.activeSelf == false)
+        if (InventoryUI.activeSelf || player.isPlayerAlive == false)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
         }
         else
         {
@@ -46,7 +45,7 @@ public class CameraControls : MonoBehaviour
             xRotation = Mathf.Clamp(xRotation, -45f, 45f);
 
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-            playerCharacter.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            player.gameObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         }
     }
 }

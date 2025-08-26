@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,12 +53,10 @@ public class SavingSystem : MonoBehaviour
     {
        if (invSlot.HasAnInventoryItem())
        {
-            print("True, " + invSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName);
             return invSlot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName;
        }
        else
        {
-            print("False");
             return null;
        }
 
@@ -84,67 +80,11 @@ public class SavingSystem : MonoBehaviour
     {
         SavingModel model = new SavingModel();
 
-        model.toolBarInvItem1Name = CheckItemName(inventoryUIScript.inventorySlots[0]);
-        model.toolBarInvItem2Name = CheckItemName(inventoryUIScript.inventorySlots[1]);
-        model.toolBarInvItem3Name = CheckItemName(inventoryUIScript.inventorySlots[2]);
-        model.toolBarInvItem4Name = CheckItemName(inventoryUIScript.inventorySlots[3]);
-        model.toolBarInvItem5Name = CheckItemName(inventoryUIScript.inventorySlots[4]);
-        model.toolBarInvItem6Name = CheckItemName(inventoryUIScript.inventorySlots[5]);
-        model.toolBarInvItem7Name = CheckItemName(inventoryUIScript.inventorySlots[6]);
-        
-        model.InvItem1Name = CheckItemName(inventoryUIScript.inventorySlots[7]);
-        model.InvItem2Name = CheckItemName(inventoryUIScript.inventorySlots[8]);
-        model.InvItem3Name = CheckItemName(inventoryUIScript.inventorySlots[9]);
-        model.InvItem4Name = CheckItemName(inventoryUIScript.inventorySlots[10]);
-        model.InvItem5Name = CheckItemName(inventoryUIScript.inventorySlots[11]);
-        model.InvItem6Name = CheckItemName(inventoryUIScript.inventorySlots[12]);
-        model.InvItem7Name = CheckItemName(inventoryUIScript.inventorySlots[13]);
-        model.InvItem8Name = CheckItemName(inventoryUIScript.inventorySlots[14]);
-        model.InvItem9Name = CheckItemName(inventoryUIScript.inventorySlots[15]);
-        model.InvItem10Name = CheckItemName(inventoryUIScript.inventorySlots[16]);
-        model.InvItem11Name = CheckItemName(inventoryUIScript.inventorySlots[17]);
-        model.InvItem12Name = CheckItemName(inventoryUIScript.inventorySlots[18]);
-        model.InvItem13Name = CheckItemName(inventoryUIScript.inventorySlots[19]);
-        model.InvItem14Name = CheckItemName(inventoryUIScript.inventorySlots[20]);
-        model.InvItem15Name = CheckItemName(inventoryUIScript.inventorySlots[21]);
-        model.InvItem16Name = CheckItemName(inventoryUIScript.inventorySlots[22]);
-        model.InvItem17Name = CheckItemName(inventoryUIScript.inventorySlots[23]);
-        model.InvItem18Name = CheckItemName(inventoryUIScript.inventorySlots[24]);
-        model.InvItem19Name = CheckItemName(inventoryUIScript.inventorySlots[25]);
-        model.InvItem20Name = CheckItemName(inventoryUIScript.inventorySlots[26]);
-        model.InvItem21Name = CheckItemName(inventoryUIScript.inventorySlots[27]);
-
-
-        model.toolBarInvItem1Amount = CheckItemAmount(inventoryUIScript.inventorySlots[0]);
-        model.toolBarInvItem2Amount = CheckItemAmount(inventoryUIScript.inventorySlots[1]);
-        model.toolBarInvItem3Amount = CheckItemAmount(inventoryUIScript.inventorySlots[2]);
-        model.toolBarInvItem4Amount = CheckItemAmount(inventoryUIScript.inventorySlots[3]);
-        model.toolBarInvItem5Amount = CheckItemAmount(inventoryUIScript.inventorySlots[4]);
-        model.toolBarInvItem6Amount = CheckItemAmount(inventoryUIScript.inventorySlots[5]);
-        model.toolBarInvItem7Amount = CheckItemAmount(inventoryUIScript.inventorySlots[6]);
-
-        model.InvItem1Amount = CheckItemAmount(inventoryUIScript.inventorySlots[7]);
-        model.InvItem2Amount = CheckItemAmount(inventoryUIScript.inventorySlots[8]);
-        model.InvItem3Amount = CheckItemAmount(inventoryUIScript.inventorySlots[9]);
-        model.InvItem4Amount = CheckItemAmount(inventoryUIScript.inventorySlots[10]);
-        model.InvItem5Amount = CheckItemAmount(inventoryUIScript.inventorySlots[11]);
-        model.InvItem6Amount = CheckItemAmount(inventoryUIScript.inventorySlots[12]);
-        model.InvItem7Amount = CheckItemAmount(inventoryUIScript.inventorySlots[13]);
-        model.InvItem8Amount = CheckItemAmount(inventoryUIScript.inventorySlots[14]);
-        model.InvItem9Amount = CheckItemAmount(inventoryUIScript.inventorySlots[15]);
-        model.InvItem10Amount = CheckItemAmount(inventoryUIScript.inventorySlots[16]);
-        model.InvItem11Amount = CheckItemAmount(inventoryUIScript.inventorySlots[17]);
-        model.InvItem12Amount = CheckItemAmount(inventoryUIScript.inventorySlots[18]);
-        model.InvItem13Amount = CheckItemAmount(inventoryUIScript.inventorySlots[19]);
-        model.InvItem14Amount = CheckItemAmount(inventoryUIScript.inventorySlots[20]);
-        model.InvItem15Amount = CheckItemAmount(inventoryUIScript.inventorySlots[21]);
-        model.InvItem16Amount = CheckItemAmount(inventoryUIScript.inventorySlots[22]);
-        model.InvItem17Amount = CheckItemAmount(inventoryUIScript.inventorySlots[23]);
-        model.InvItem18Amount = CheckItemAmount(inventoryUIScript.inventorySlots[24]);
-        model.InvItem19Amount = CheckItemAmount(inventoryUIScript.inventorySlots[25]);
-        model.InvItem20Amount = CheckItemAmount(inventoryUIScript.inventorySlots[26]);
-        model.InvItem21Amount = CheckItemAmount(inventoryUIScript.inventorySlots[27]);
-
+        for (int i = 0; i < inventoryUIScript.inventorySlots.Length; i++)
+        {
+            model.InvItemNames[i] = CheckItemName(inventoryUIScript.inventorySlots[i]);
+            model.InvItemAmounts[i] = CheckItemAmount(inventoryUIScript.inventorySlots[i]);
+        }
 
         string json = JsonUtility.ToJson(model);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
@@ -155,102 +95,49 @@ public class SavingSystem : MonoBehaviour
 
     public void LoadData()
     {
+        if (!File.Exists(Application.persistentDataPath + "/save.json"))
+        {
+            SavingModel emptyModel = CreateEmptyInventory();
+            string json = JsonUtility.ToJson(emptyModel);
+            File.WriteAllText(Application.persistentDataPath + "/save.json", json);
+            return;
+        }
+
         SavingModel model = JsonUtility.FromJson<SavingModel>(File.ReadAllText(Application.persistentDataPath + "/save.json"));
 
-        SetItemData(inventoryUIScript.inventorySlots[0], model.toolBarInvItem1Name, model.toolBarInvItem1Amount);
-        SetItemData(inventoryUIScript.inventorySlots[1], model.toolBarInvItem2Name, model.toolBarInvItem2Amount);
-        SetItemData(inventoryUIScript.inventorySlots[2], model.toolBarInvItem3Name, model.toolBarInvItem3Amount);
-        SetItemData(inventoryUIScript.inventorySlots[3], model.toolBarInvItem4Name, model.toolBarInvItem4Amount);
-        SetItemData(inventoryUIScript.inventorySlots[4], model.toolBarInvItem5Name, model.toolBarInvItem5Amount);
-        SetItemData(inventoryUIScript.inventorySlots[5], model.toolBarInvItem6Name, model.toolBarInvItem6Amount);
-        SetItemData(inventoryUIScript.inventorySlots[6], model.toolBarInvItem7Name, model.toolBarInvItem7Amount);
 
-        SetItemData(inventoryUIScript.inventorySlots[7], model.InvItem1Name, model.InvItem1Amount);
-        SetItemData(inventoryUIScript.inventorySlots[8], model.InvItem2Name, model.InvItem2Amount);
-        SetItemData(inventoryUIScript.inventorySlots[9], model.InvItem3Name, model.InvItem3Amount);
-        SetItemData(inventoryUIScript.inventorySlots[10], model.InvItem4Name, model.InvItem4Amount);
-        SetItemData(inventoryUIScript.inventorySlots[11], model.InvItem5Name, model.InvItem5Amount);
-        SetItemData(inventoryUIScript.inventorySlots[12], model.InvItem6Name, model.InvItem6Amount);
-        SetItemData(inventoryUIScript.inventorySlots[13], model.InvItem7Name, model.InvItem7Amount);
-        SetItemData(inventoryUIScript.inventorySlots[14], model.InvItem8Name, model.InvItem8Amount);
-        SetItemData(inventoryUIScript.inventorySlots[15], model.InvItem9Name, model.InvItem9Amount);
-        SetItemData(inventoryUIScript.inventorySlots[16], model.InvItem10Name, model.InvItem10Amount);
-        SetItemData(inventoryUIScript.inventorySlots[17], model.InvItem11Name, model.InvItem11Amount);
-        SetItemData(inventoryUIScript.inventorySlots[18], model.InvItem12Name, model.InvItem12Amount);
-        SetItemData(inventoryUIScript.inventorySlots[19], model.InvItem13Name, model.InvItem13Amount);
-        SetItemData(inventoryUIScript.inventorySlots[20], model.InvItem14Name, model.InvItem14Amount);
-        SetItemData(inventoryUIScript.inventorySlots[21], model.InvItem15Name, model.InvItem15Amount);
-        SetItemData(inventoryUIScript.inventorySlots[22], model.InvItem16Name, model.InvItem16Amount);
-        SetItemData(inventoryUIScript.inventorySlots[23], model.InvItem17Name, model.InvItem17Amount);
-        SetItemData(inventoryUIScript.inventorySlots[24], model.InvItem18Name, model.InvItem18Amount);
-        SetItemData(inventoryUIScript.inventorySlots[25], model.InvItem19Name, model.InvItem19Amount);
-        SetItemData(inventoryUIScript.inventorySlots[26], model.InvItem20Name, model.InvItem20Amount);
-        SetItemData(inventoryUIScript.inventorySlots[27], model.InvItem21Name, model.InvItem21Amount);
+        for (int i = 0; i < inventoryUIScript.inventorySlots.Length; i++)
+        {
+            SetItemData(inventoryUIScript.inventorySlots[i], model.InvItemNames[i], model.InvItemAmounts[i]);
+        }
 
         inventoryUIScript.ChangeEquippedSlotColorAndResetThePrevious(0);
+    }
+
+    public SavingModel CreateEmptyInventory()
+    {
+        SavingModel emptyModel = new SavingModel();
+
+        for (int i = 0; i < inventoryUIScript.inventorySlots.Length; i++)
+        {
+            // Reset save.json if it exists
+            emptyModel.InvItemNames[i] = "";
+            emptyModel.InvItemAmounts[i] = 0;
+
+            if (inventoryUIScript.inventorySlots[i].HasAnInventoryItem())
+            {
+                Destroy(inventoryUIScript.inventorySlots[i].transform.GetChild(0).gameObject);
+            }
+        }
+
+        return emptyModel;
     }
 }
 
 
+
 public class SavingModel
 {
-    public string? toolBarInvItem1Name;
-    public string? toolBarInvItem2Name;
-    public string? toolBarInvItem3Name;
-    public string? toolBarInvItem4Name;
-    public string? toolBarInvItem5Name;
-    public string? toolBarInvItem6Name;
-    public string? toolBarInvItem7Name;
-
-    public string? InvItem1Name;
-    public string? InvItem2Name;
-    public string? InvItem3Name;
-    public string? InvItem4Name;
-    public string? InvItem5Name;
-    public string? InvItem6Name;
-    public string? InvItem7Name;
-    public string? InvItem8Name;
-    public string? InvItem9Name;
-    public string? InvItem10Name;
-    public string? InvItem11Name;
-    public string? InvItem12Name;
-    public string? InvItem13Name;
-    public string? InvItem14Name;
-    public string? InvItem15Name;
-    public string? InvItem16Name;
-    public string? InvItem17Name;
-    public string? InvItem18Name;
-    public string? InvItem19Name;
-    public string? InvItem20Name;
-    public string? InvItem21Name;
-
-    public int toolBarInvItem1Amount;
-    public int toolBarInvItem2Amount;
-    public int toolBarInvItem3Amount;
-    public int toolBarInvItem4Amount;
-    public int toolBarInvItem5Amount;
-    public int toolBarInvItem6Amount;
-    public int toolBarInvItem7Amount;
-
-    public int InvItem1Amount;
-    public int InvItem2Amount;
-    public int InvItem3Amount;
-    public int InvItem4Amount;
-    public int InvItem5Amount;
-    public int InvItem6Amount;
-    public int InvItem7Amount;
-    public int InvItem8Amount;
-    public int InvItem9Amount;
-    public int InvItem10Amount;
-    public int InvItem11Amount;
-    public int InvItem12Amount;
-    public int InvItem13Amount;
-    public int InvItem14Amount;
-    public int InvItem15Amount;
-    public int InvItem16Amount;
-    public int InvItem17Amount;
-    public int InvItem18Amount;
-    public int InvItem19Amount;
-    public int InvItem20Amount;
-    public int InvItem21Amount;
+    public string[] InvItemNames = new string[28];
+    public int[] InvItemAmounts = new int[28];
 }

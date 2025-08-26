@@ -5,6 +5,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public GameObject InventoryUI;
 
+
+    public bool isPlayerAlive;
+
     float movementSpeed = 3.5f;
     float jumpForce = 4f;
 
@@ -22,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
         playerRigidBody.freezeRotation = true;
     }
@@ -47,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (InventoryUI.activeSelf)
+        if (InventoryUI.activeSelf || isPlayerAlive == false)
         {
             movementDirection = Vector3.zero;
         }

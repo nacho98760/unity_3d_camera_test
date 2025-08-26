@@ -103,7 +103,7 @@ public class InventoryUIScript : MonoBehaviour
 
                 if (slot.transform.childCount == 0)
                 {
-                    SpawnNewItem(item, slot, 1);
+                    SpawnNewItem(item, slot, item.amountToAddOnInv);
                     return;
                 }
             }

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class AxeAnimationHandler : MonoBehaviour
 {   
+    public PlayerMovement player;
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
     [SerializeField] private GameObject InventoryUI;
 
@@ -43,11 +44,6 @@ public class AxeAnimationHandler : MonoBehaviour
         }
 
         GetCurrentChopAnimationTime();
-    }
-
-    private void OnEnable()
-    {
-        
     }
 
     public void ChangeAnimation(string animation, float crossfade = 0.2f)
@@ -89,16 +85,15 @@ public class AxeAnimationHandler : MonoBehaviour
 
             other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
 
-            transform.root.gameObject.GetComponent<HealthComponent>().OnObjectHit += ChangePlayerHealthText;
-            transform.root.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
+            player.gameObject.GetComponent<HealthComponent>().OnObjectHit += ChangePlayerHealthText;
+            player.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
 
 
             if (transform.root.gameObject.GetComponent<HealthComponent>().isAlive == false)
             {
+                player.isPlayerAlive = false;
                 playerDeathCanvas.gameObject.SetActive(true);
-                transform.root.gameObject.GetComponent<HealthComponent>().OnObjectHit -= ChangePlayerHealthText;
-
-                transform.root.gameObject.SetActive(false);
+                player.gameObject.GetComponent<HealthComponent>().OnObjectHit -= ChangePlayerHealthText;
             }
 
             if (other.gameObject.GetComponent<HealthComponent>().isAlive == false)
@@ -111,7 +106,7 @@ public class AxeAnimationHandler : MonoBehaviour
     }
 
 
-    private void ChangePlayerHealthText(float currentHealth, float maxHealth)
+    public void ChangePlayerHealthText(float currentHealth, float maxHealth)
     {
         playerHealth.text = currentHealth.ToString() + "/" + maxHealth.ToString();
         print(currentHealth);
