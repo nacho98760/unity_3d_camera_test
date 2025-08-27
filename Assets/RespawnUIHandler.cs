@@ -28,7 +28,9 @@ public class RespawnUIHandler : MonoBehaviour
         PlayerHealthText.text = (playerHealth.currentHealth).ToString() + "/" + (playerHealth.currentHealth).ToString();
 
         SpawnPlayerAtRandomLocation();
-        savingSystem.CreateEmptyInventory();
+
+        SavingModel emptyModel = new SavingModel();
+        savingSystem.CreateEmptyInventory(emptyModel);
         gameObject.SetActive(false);
     }
 

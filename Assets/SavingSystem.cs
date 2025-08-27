@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class SavingSystem : MonoBehaviour
 {
+    public PlayerMovement playerScript;
     public InventoryUIScript inventoryUIScript;
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
 
@@ -49,7 +51,7 @@ public class SavingSystem : MonoBehaviour
     }
 
 
-    public string? CheckItemName(InventorySlot invSlot) 
+    public string CheckItemName(InventorySlot invSlot) 
     {
        if (invSlot.HasAnInventoryItem())
        {
@@ -86,6 +88,9 @@ public class SavingSystem : MonoBehaviour
             model.InvItemAmounts[i] = CheckItemAmount(inventoryUIScript.inventorySlots[i]);
         }
 
+        print(model.didPlayerPickedUpStarterAxe);
+        model.didPlayerPickedUpStarterAxe = playerScript.didPlayerPickedUpStarterAxe;
+
         string json = JsonUtility.ToJson(model);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
 
@@ -97,9 +102,7 @@ public class SavingSystem : MonoBehaviour
     {
         if (!File.Exists(Application.persistentDataPath + "/save.json"))
         {
-            SavingModel emptyModel = CreateEmptyInventory();
-            string json = JsonUtility.ToJson(emptyModel);
-            File.WriteAllText(Application.persistentDataPath + "/save.json", json);
+            CreateEmptyData();
             return;
         }
 
@@ -111,13 +114,25 @@ public class SavingSystem : MonoBehaviour
             SetItemData(inventoryUIScript.inventorySlots[i], model.InvItemNames[i], model.InvItemAmounts[i]);
         }
 
+
+        playerScript.didPlayerPickedUpStarterAxe = model.didPlayerPickedUpStarterAxe;
+
         inventoryUIScript.ChangeEquippedSlotColorAndResetThePrevious(0);
     }
 
-    public SavingModel CreateEmptyInventory()
+
+    public void CreateEmptyData()
     {
         SavingModel emptyModel = new SavingModel();
 
+        CreateEmptyInventory(emptyModel);
+        emptyModel.didPlayerPickedUpStarterAxe = false;
+        string json = JsonUtility.ToJson(emptyModel);
+        File.WriteAllText(Application.persistentDataPath + "/save.json", json);
+    }
+
+    public void CreateEmptyInventory(SavingModel emptyModel)
+    {
         for (int i = 0; i < inventoryUIScript.inventorySlots.Length; i++)
         {
             // Reset save.json if it exists
@@ -130,7 +145,7 @@ public class SavingSystem : MonoBehaviour
             }
         }
 
-        return emptyModel;
+        inventoryUIScript.ChangeEquippedSlotColorAndResetThePrevious(0);
     }
 }
 
@@ -140,4 +155,6 @@ public class SavingModel
 {
     public string[] InvItemNames = new string[28];
     public int[] InvItemAmounts = new int[28];
+
+    public bool didPlayerPickedUpStarterAxe;
 }

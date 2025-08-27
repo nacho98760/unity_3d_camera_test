@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class PlayerMovement : MonoBehaviour
 
 
     public bool isPlayerAlive;
+
+    public bool didPlayerPickedUpStarterAxe;
+    public Transform starterAxeSpawnPoint;
+    public GameObject AxeModelPrefab;
+    public Item AxeItem;
+    public InventoryUIScript inventoryUIScript;
 
     float movementSpeed = 3.5f;
     float jumpForce = 4f;
@@ -25,15 +32,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+
         isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
         playerRigidBody.freezeRotation = true;
+
+        if (didPlayerPickedUpStarterAxe == false)
+        {
+            AddStarterAxe();
+        }
     }
 
     
     private void Update()
     {
-
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, floorLayer);
 
         if (isGrounded)
@@ -91,4 +103,37 @@ public class PlayerMovement : MonoBehaviour
             playerRigidBody.linearVelocity = new Vector3(limitedVelocity.x, playerRigidBody.linearVelocity.y, limitedVelocity.z);
         }
     }
+
+
+    private void AddStarterAxe()
+    {
+        GameObject starterAxe = Instantiate(AxeModelPrefab);
+        starterAxe.transform.position = starterAxeSpawnPoint.position;
+        starterAxe.transform.rotation = starterAxeSpawnPoint.rotation;
+        starterAxe.transform.localScale = starterAxeSpawnPoint.localScale;
+        starterAxe.layer = 10;
+
+        starterAxe.AddComponent<CapsuleCollider>();
+        starterAxe.GetComponent<CapsuleCollider>().isTrigger = true;
+        starterAxe.GetComponent<CapsuleCollider>().includeLayers = LayerMask.GetMask("PlayerLayer");
+        starterAxe.GetComponent<CapsuleCollider>().excludeLayers = 0;
+    }
+
+    //----------------Check----------------
+    private void OnTriggerEnter(Collider other)
+    {   
+        // If layer == 10, it means the object the player is colliding with is the starter axe
+        print("Entered");
+        print(other.gameObject.layer);
+        if (other.gameObject.layer == 10)
+        {
+            inventoryUIScript.AddItem(AxeItem, AxeItem.amountToAddOnInv);
+            inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
+            inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
+            Destroy(other.gameObject);
+            didPlayerPickedUpStarterAxe = true;
+
+        }
+    }
+    //----------------Check----------------
 }

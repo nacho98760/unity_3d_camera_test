@@ -29,8 +29,6 @@ public class InventoryUIScript : MonoBehaviour
     public GameObject InventoryUI;
     public bool isOpen;
 
-    public Item[] starterItems;
-
     void Start()
     {
         InventoryUI.SetActive(false);
@@ -42,8 +40,6 @@ public class InventoryUIScript : MonoBehaviour
         {
             inventorySlotsOnToolbar[i] = Toolbar.transform.GetChild(i).GetComponent<InventorySlot>();
         }
-
-        StartCoroutine(AddStarterItems(starterItems));
     }
 
     private void Update()
@@ -134,19 +130,6 @@ public class InventoryUIScript : MonoBehaviour
         }
 
         return itemFound;
-    }
-
-    IEnumerator AddStarterItems(Item[] items)
-    {
-        yield return null;
-
-        foreach (Item starterItem in items)
-        {
-            if (CheckIfItemIsAlreadyOnInventory(starterItem) == false)
-            {
-                AddItem(starterItem, starterItem.amountToAddOnInv);
-            }
-        }
     }
 
     public void ChangeEquippedSlotColorAndResetThePrevious(int slotPosition)
