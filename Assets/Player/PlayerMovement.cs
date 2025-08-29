@@ -1,11 +1,15 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public GameObject InventoryUI;
 
+    [SerializeField] private Button pickButton;
+    private GameObject pickedItemObject;
+    public Canvas PickItemCanvas;
 
     public bool isPlayerAlive;
 
@@ -30,9 +34,10 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody playerRigidBody;
 
+
     private void Start()
     {
-
+        pickButton.onClick.AddListener(OnPickedItemButtonPressed);
         isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
         playerRigidBody.freezeRotation = true;
@@ -41,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         {
             AddStarterAxe();
         }
+
+        PickItemCanvas.gameObject.SetActive(false);
     }
 
     
@@ -113,27 +120,49 @@ public class PlayerMovement : MonoBehaviour
         starterAxe.transform.localScale = starterAxeSpawnPoint.localScale;
         starterAxe.layer = 10;
 
-        starterAxe.AddComponent<CapsuleCollider>();
-        starterAxe.GetComponent<CapsuleCollider>().isTrigger = true;
-        starterAxe.GetComponent<CapsuleCollider>().includeLayers = LayerMask.GetMask("PlayerLayer");
-        starterAxe.GetComponent<CapsuleCollider>().excludeLayers = 0;
+        BoxCollider axeCollider = starterAxe.AddComponent<BoxCollider>();
+        axeCollider.size = new Vector3(axeCollider.size.x, axeCollider.size.y, axeCollider.size.z + 2.5f);
+        axeCollider.isTrigger = true;
+        axeCollider.includeLayers = LayerMask.GetMask("PlayerLayer");
+        axeCollider.excludeLayers = 0;
     }
 
-    //----------------Check----------------
+
     private void OnTriggerEnter(Collider other)
-    {   
+    {
         // If layer == 10, it means the object the player is colliding with is the starter axe
-        print("Entered");
-        print(other.gameObject.layer);
         if (other.gameObject.layer == 10)
         {
-            inventoryUIScript.AddItem(AxeItem, AxeItem.amountToAddOnInv);
-            inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
-            inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
-            Destroy(other.gameObject);
-            didPlayerPickedUpStarterAxe = true;
-
+            pickedItemObject = other.gameObject;
+            PickItemCanvas.gameObject.SetActive(true);
         }
     }
-    //----------------Check----------------
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 10) 
+        {
+            if (pickedItemObject == other.gameObject)
+            {
+                pickedItemObject = null;
+            }
+
+            PickItemCanvas.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnPickedItemButtonPressed()
+    {
+        if (pickedItemObject == null)
+            return;
+
+        inventoryUIScript.AddItem(AxeItem, AxeItem.amountToAddOnInv);
+        inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
+        inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
+        Destroy(pickedItemObject);
+        didPlayerPickedUpStarterAxe = true;
+        PickItemCanvas.gameObject.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

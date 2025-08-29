@@ -5,8 +5,8 @@ public class CameraControls : MonoBehaviour
 
     [SerializeField] private GameObject InventoryUI;
 
-    float sensX = 250;
-    float sensY = 250;
+    float sensX = 500f;
+    float sensY = 500f;
 
     public PlayerMovement player;
 
@@ -27,7 +27,7 @@ public class CameraControls : MonoBehaviour
 
     void checkForCursorState()
     {
-        if (InventoryUI.activeSelf || player.isPlayerAlive == false)
+        if (InventoryUI.activeSelf || player.isPlayerAlive == false || player.PickItemCanvas.gameObject.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -37,11 +37,11 @@ public class CameraControls : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            float mouseX = Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY * Time.deltaTime;
+            float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
 
-            yRotation += mouseX;
-            xRotation -= mouseY;
+            yRotation += mouseX * Time.deltaTime;
+            xRotation -= mouseY * Time.deltaTime;
             xRotation = Mathf.Clamp(xRotation, -45f, 45f);
 
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
