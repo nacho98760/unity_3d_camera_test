@@ -113,25 +113,6 @@ public class InventoryUIScript : MonoBehaviour
         inventoryItem.InitializeItem(item, initialAmount);
     }
 
-    bool CheckIfItemIsAlreadyOnInventory(Item item)
-    {
-        bool itemFound = false;
-
-        foreach (InventorySlot slot in inventorySlots)
-        {
-            if (slot.HasAnInventoryItem() == false)
-                continue;
-
-            if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
-            {
-                itemFound = true;
-                break;
-            }
-        }
-
-        return itemFound;
-    }
-
     public void ChangeEquippedSlotColorAndResetThePrevious(int slotPosition)
     {
         if (currentlyEquippedSlot != null)
@@ -142,6 +123,7 @@ public class InventoryUIScript : MonoBehaviour
         currentlyEquippedSlot = inventorySlotsOnToolbar[slotPosition];
         currentlyEquippedSlot.GetComponent<Image>().color = slotWithEquippedItemColor;
         Axe.transform.gameObject.SetActive(CheckIfAxeIsEquipped());
+
         CheckAxeAnimationState(CheckIfAxeIsEquipped());
     }
 
@@ -187,15 +169,11 @@ public class InventoryUIScript : MonoBehaviour
     public bool CheckIfAxeIsEquipped()
     {
         bool axeFoundOnSlot = false;
-        int counter = 0;
+
         foreach (InventorySlot slot in inventorySlots)
         {
-            print(counter);
-            counter++;
-
             if (slot.HasAnInventoryItem() == false)
                 continue;
-
 
             if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
             {

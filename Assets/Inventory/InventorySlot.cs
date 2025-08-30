@@ -47,13 +47,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public bool HasAnInventoryItem()
     {
-        if (transform.childCount > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (transform.childCount > 0);
     }
 }

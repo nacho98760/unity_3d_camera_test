@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.LightTransport;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ using random = UnityEngine.Random;
 public class RespawnUIHandler : MonoBehaviour
 {
     public PlayerMovement player;
+    public AxeAnimationHandler Axe;
     public Text PlayerHealthText;
     public Transform worldFloor;
     public Button respawnButton;
@@ -31,6 +33,11 @@ public class RespawnUIHandler : MonoBehaviour
 
         SavingModel emptyModel = new SavingModel();
         savingSystem.CreateEmptyInventory(emptyModel);
+
+        StartCoroutine(WaitFunction(1f));
+        print("Waited");
+        
+        Axe.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -42,5 +49,11 @@ public class RespawnUIHandler : MonoBehaviour
         float randomZPos = random.Range(worldFloor.position.z - 5f, worldFloor.position.z + 5f);
 
         player.gameObject.transform.position = new Vector3(randomXPos, worldFloor.position.y + player.playerHeight / 2, randomZPos);
+    }
+
+
+    private IEnumerator WaitFunction(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }
