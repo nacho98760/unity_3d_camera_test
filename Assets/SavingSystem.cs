@@ -36,9 +36,10 @@ public class SavingSystem : MonoBehaviour
         inventoryUIScript.SpawnNewItem(itemObject, invSlot, itemAmount);
     }
 
-    public Item? GetItemObjectByName(string itemName)
+    public Item GetItemObjectByName(string itemName)
     {
-        Item? itemFound = null;
+        Item itemFound = null;
+
         foreach (Item item in itemList)
         {
             if (item.name == itemName)
