@@ -27,7 +27,7 @@ public class CameraControls : MonoBehaviour
 
     void checkForCursorState()
     {
-        if (InventoryUI.activeSelf || player.isPlayerAlive == false || player.PickItemCanvas.gameObject.activeSelf)
+        if (InventoryUI.activeSelf || player.isPlayerAlive == false || player.PickItemCanvas.gameObject.activeSelf || player.CraftingCanvas.gameObject.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

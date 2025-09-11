@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Button pickButton;
     private GameObject pickedItemObject;
     public Canvas PickItemCanvas;
+    public Canvas CraftingCanvas;
 
     public bool isPlayerAlive;
 
