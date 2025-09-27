@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class CloseMenuScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public GameObject craftingCanvas;
+    public GameObject transparencyBackground;
     public Texture2D pointingHandMouseIcon;
 
     public void OnButtonClicked()
     {
-        GameObject craftingCanvasObject = gameObject.transform.root.gameObject;
+        craftingCanvas.SetActive(false);
+        transparencyBackground.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
 
-        craftingCanvasObject.SetActive(false);
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
