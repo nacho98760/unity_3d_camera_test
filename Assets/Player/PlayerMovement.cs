@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public LayerMask craftingTableLayer;
+
     [SerializeField] public GameObject InventoryUI;
 
     [SerializeField] private Button pickButton;
@@ -38,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        /*
+        starterAxeLayer = LayerMask.NameToLayer("StarterAxeLayer");
+        craftingTableLayer = LayerMask.NameToLayer("CraftingTableLayer");
+        */
+
         pickButton.onClick.AddListener(OnPickedItemButtonPressed);
         isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
@@ -67,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         movePlayer(isGrounded);
         speedControl();
+        CheckForCraftingTableOpeningReq();
     }
 
     private void FixedUpdate()
@@ -131,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // If layer == 10, it means the object the player is colliding with is the starter axe
         if (other.gameObject.layer == 10)
         {
             pickedItemObject = other.gameObject;
@@ -165,5 +172,27 @@ public class PlayerMovement : MonoBehaviour
         PickItemCanvas.gameObject.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+
+    private void CheckForCraftingTableOpeningReq()
+    {
+        Transform playerCameraPos = transform.Find("CameraPos");
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (Physics.Raycast(playerCameraPos.position, Vector3.forward, out RaycastHit hit, 50f, craftingTableLayer))
+            {
+                print("Yes");
+                print(hit.collider.gameObject.name);
+            }
+            else
+            {
+                print("No");
+                print(hit.collider.gameObject.name);
+            }
+
+        }
+
     }
 }
