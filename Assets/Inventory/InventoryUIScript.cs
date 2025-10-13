@@ -95,14 +95,28 @@ public class InventoryUIScript : MonoBehaviour
             {
                 InventorySlot slot = inventorySlots[i];
 
-                InventoryItem itemInSlot = slot.GetComponent<InventoryItem>();
-
                 if (slot.transform.childCount == 0)
                 {
                     SpawnNewItem(item, slot, item.amountToAddOnInv);
                     return;
                 }
             }
+        }
+    }
+
+    public void RemoveItem(Item item, int itemAmount)
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+
+            /*
+            if (slot.transform.childCount == 0)
+            {
+                SpawnNewItem(item, slot, item.amountToAddOnInv);
+                return;
+            }
+            */
         }
     }
 
@@ -129,39 +143,14 @@ public class InventoryUIScript : MonoBehaviour
 
     public void EquipSlotBasedOnKeyPressed()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(0);
-        }
+        KeyCode[] keysToEquipitems = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
 
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        for (int i = 0; i < keysToEquipitems.Length; i++)
         {
-            ChangeEquippedSlotColorAndResetThePrevious(1);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(2);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(3);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(4);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(5);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            ChangeEquippedSlotColorAndResetThePrevious(6);
+            if (Input.GetKeyDown(keysToEquipitems[i]))
+            {
+                ChangeEquippedSlotColorAndResetThePrevious(i);
+            }
         }
     }
 

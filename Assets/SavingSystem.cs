@@ -25,7 +25,7 @@ public class SavingSystem : MonoBehaviour
         SaveData();
     }
 
-    public void SetItemData(InventorySlot invSlot, string? itemName, int itemAmount)
+    public void SetItemData(InventorySlot invSlot, string itemName, int itemAmount)
     {
         if (itemName == null || itemName == "")
         {
@@ -42,7 +42,7 @@ public class SavingSystem : MonoBehaviour
 
         foreach (Item item in itemList)
         {
-            if (item.name == itemName)
+            if (item.itemName == itemName)
             {
                 itemFound = item;
             }

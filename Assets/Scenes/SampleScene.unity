@@ -1135,6 +1135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ab9b62a7218a64a8321ad64576f26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  inventoryUIScript: {fileID: 488149069}
+  craftingItem: {fileID: 1299730891}
   pointingHandMouseIcon: {fileID: 2800000, guid: 57d4522f6de45674ea6740cf8b764ca6, type: 3}
 --- !u!1 &259117595
 GameObject:
@@ -2399,10 +2401,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b840f45b8ae88a43b71d01e229bc449, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 927931412}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b840f45b8ae88a43b71d01e229bc449, type: 3}
 --- !u!1 &761253783
 GameObject:
@@ -2897,29 +2896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71724d0494f44bd46bbad2d4f1d8689b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &927931410 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b840f45b8ae88a43b71d01e229bc449, type: 3}
-  m_PrefabInstance: {fileID: 742549493}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &927931412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927931410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70706108b9701846a390d080b9c6d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allRecipes:
-  - recipeName: Axe
-    ingredients:
-    - item: {fileID: 11400000, guid: 88177d605a8bea04aba2fca3a55acc50, type: 2}
-      amount: 3
-    resultItem: {fileID: 11400000, guid: 29b6f4f5e1edc9143a54fd4473d86843, type: 2}
 --- !u!1 &945495139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4918,6 +4894,7 @@ GameObject:
   - component: {fileID: 1299730892}
   - component: {fileID: 1299730894}
   - component: {fileID: 1299730893}
+  - component: {fileID: 1299730895}
   m_Layer: 5
   m_Name: CraftingItem
   m_TagString: Untagged
@@ -4937,9 +4914,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1499295996}
   - {fileID: 185622581}
   - {fileID: 255771153}
+  - {fileID: 1499295996}
   m_Father: {fileID: 251781324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4985,6 +4962,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299730891}
   m_CullTransparentMesh: 1
+--- !u!114 &1299730895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299730891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8cb43146d05b149934ae995ab5d4ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  itemRecipe: {fileID: 11400000, guid: e33d78d701176ed49aa29663afabe5ce, type: 2}
 --- !u!1 &1330035394
 GameObject:
   m_ObjectHideFlags: 0

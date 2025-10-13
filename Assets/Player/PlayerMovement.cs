@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         movePlayer(isGrounded);
         speedControl();
-        CheckForCraftingTableOpeningReq();
+        // CheckForCraftingTableOpeningReq();
     }
 
     private void FixedUpdate()
@@ -175,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    /*
     private void CheckForCraftingTableOpeningReq()
     {
         Transform playerCameraPos = transform.Find("CameraPos");
@@ -189,10 +190,11 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 print("No");
-                print(hit.collider.gameObject.name);
+
             }
 
         }
 
     }
+    */
 }
