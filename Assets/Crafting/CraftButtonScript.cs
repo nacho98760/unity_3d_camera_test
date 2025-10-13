@@ -16,14 +16,28 @@ public class CraftButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
         GameObject craftingItem = transform.parent.gameObject;
         CraftingItemScript itemScript = craftingItem.GetComponent<CraftingItemScript>();
 
+        bool doesPlayerHaveAllIngredients = false;
+
         foreach (RecipeIngredient ingredient in itemScript.itemRecipe.ingredients)
         {
             bool doesPlayerHaveItemAndNecessaryAmount = CheckIfPlayerHasIngredient(ingredient);
 
+            print(doesPlayerHaveItemAndNecessaryAmount);
             if (doesPlayerHaveItemAndNecessaryAmount)
             {
-                inventoryUIScript.AddItem(itemScript.itemRecipe.resultItem, 1);
+                doesPlayerHaveAllIngredients = true;
+                continue;
+            }
 
+            doesPlayerHaveAllIngredients = false;
+        }
+
+        if (doesPlayerHaveAllIngredients)
+        {
+            inventoryUIScript.AddItem(itemScript.itemRecipe.resultItem, 1);
+            foreach (RecipeIngredient ingredient in itemScript.itemRecipe.ingredients)
+            {
+                inventoryUIScript.SubstractItemAmount(ingredient.item, ingredient.amount);
             }
         }
     }
@@ -31,28 +45,20 @@ public class CraftButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public bool CheckIfPlayerHasIngredient(RecipeIngredient ingredient)
     {
-        bool hasIngredientAndNecessaryAmount = false;
-
-        for (int i = 0; i < inventoryUIScript.inventorySlots.Length; i++)
+        foreach (InventorySlot slot in inventoryUIScript.inventorySlots)
         {
-            InventorySlot slot = inventoryUIScript.inventorySlots[i];
+            if (slot.HasAnInventoryItem() == false)
+                continue;
 
-            if (slot.HasAnInventoryItem())
-            {
-                InventoryItem item = slot.gameObject.transform.GetChild(0).GetComponent<InventoryItem>();
+            InventoryItem item = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
 
-                if (item.item == ingredient.item)
-                {
-                    if (item.amount >= ingredient.amount)
-                    {
-                        hasIngredientAndNecessaryAmount = true;
-                        break;
-                    }
-                }
-            }
+            if (item.item != ingredient.item)
+                continue;
+
+            return (item.amount >= ingredient.amount);
         }
 
-        return hasIngredientAndNecessaryAmount;
+        return false;
     }
 
 

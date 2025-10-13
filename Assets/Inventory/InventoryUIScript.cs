@@ -75,8 +75,7 @@ public class InventoryUIScript : MonoBehaviour
 
             if (slot.transform.childCount > 0)
             {
-                GameObject itemInSlot = slot.transform.GetChild(0).gameObject;
-                InventoryItem inventoryItem = itemInSlot.GetComponent<InventoryItem>();
+                InventoryItem inventoryItem = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
 
                 if (inventoryItem.itemName == item.itemName)
                 {
@@ -104,21 +103,30 @@ public class InventoryUIScript : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Item item, int itemAmount)
+    public void SubstractItemAmount(Item item, int itemAmountToRemove)
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
 
-            /*
-            if (slot.transform.childCount == 0)
+            if (slot.HasAnInventoryItem())
             {
-                SpawnNewItem(item, slot, item.amountToAddOnInv);
-                return;
+                InventoryItem itemInSlot = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
+
+                if (itemInSlot.itemName == item.itemName)
+                {
+                    itemInSlot.amount -= itemAmountToRemove;
+                    itemInSlot.amountText.text = (itemInSlot.amount).ToString();
+
+                    if (itemInSlot.amount <= 0)
+                    {
+                        Destroy(itemInSlot.gameObject);
+                    }
+                }
             }
-            */
         }
     }
+
 
     public void SpawnNewItem(Item item, InventorySlot slot, int initialAmount)
     {
