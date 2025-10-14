@@ -77,6 +77,7 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.)
         // If currentChopAnimationTime != null, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
         if ((currentChopAnimationTime > 0.65f && currentChopAnimationTime < 0.95f) && canChop)
         {

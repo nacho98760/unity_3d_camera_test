@@ -5,8 +5,8 @@ public class CameraControls : MonoBehaviour
 
     [SerializeField] private GameObject InventoryUI;
 
-    float sensX = 500f;
-    float sensY = 500f;
+    float sensX = 200f;
+    float sensY = 200f;
 
     public PlayerMovement player;
 
@@ -44,7 +44,7 @@ public class CameraControls : MonoBehaviour
             xRotation -= mouseY * Time.deltaTime;
             xRotation = Mathf.Clamp(xRotation, -45f, 45f);
 
-            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
             player.gameObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         }
     }

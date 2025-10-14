@@ -109,20 +109,20 @@ public class InventoryUIScript : MonoBehaviour
         {
             InventorySlot slot = inventorySlots[i];
 
-            if (slot.HasAnInventoryItem())
+            if (!slot.HasAnInventoryItem())
+                continue;
+
+            InventoryItem itemInSlot = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
+
+            if (itemInSlot.itemName != item.itemName)
+                continue;
+            
+            itemInSlot.amount -= itemAmountToRemove;
+            itemInSlot.amountText.text = (itemInSlot.amount).ToString();
+
+            if (itemInSlot.amount <= 0)
             {
-                InventoryItem itemInSlot = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
-
-                if (itemInSlot.itemName == item.itemName)
-                {
-                    itemInSlot.amount -= itemAmountToRemove;
-                    itemInSlot.amountText.text = (itemInSlot.amount).ToString();
-
-                    if (itemInSlot.amount <= 0)
-                    {
-                        Destroy(itemInSlot.gameObject);
-                    }
-                }
+                Destroy(itemInSlot.gameObject);
             }
         }
     }
@@ -169,7 +169,7 @@ public class InventoryUIScript : MonoBehaviour
 
         foreach (InventorySlot slot in inventorySlots)
         {
-            if (slot.HasAnInventoryItem() == false)
+            if (!slot.HasAnInventoryItem())
                 continue;
 
             if (slot.transform.GetChild(0).gameObject.GetComponent<InventoryItem>().itemName == "Axe")
@@ -194,5 +194,3 @@ public class InventoryUIScript : MonoBehaviour
     }
 
 }
-
-

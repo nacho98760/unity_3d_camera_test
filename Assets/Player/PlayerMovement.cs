@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Item AxeItem;
     public InventoryUIScript inventoryUIScript;
 
-    float movementSpeed = 3.5f;
+    float movementSpeed = 3f;
     float jumpForce = 4f;
 
     public float playerHeight;
@@ -37,7 +37,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movementDirection;
 
     Rigidbody playerRigidBody;
-
+    private void Awake()
+    {
+        Application.targetFrameRate = 180;
+    }
 
     private void Start()
     {
@@ -68,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             playerRigidBody.linearDamping = 0;
         }
 
-        movePlayer(isGrounded);
+        MovePlayer(isGrounded);
         speedControl();
         CheckForCraftingTableOpeningReq();
     }
@@ -82,12 +85,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             movementDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-            playerRigidBody.AddForce(movementDirection.normalized * movementSpeed * 10f, ForceMode.Force);
+            playerRigidBody.AddForce(movementDirection.normalized * movementSpeed, ForceMode.VelocityChange);
         }
     }
 
 
-    private void movePlayer(bool isGrounded)
+    private void MovePlayer(bool isGrounded)
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");

@@ -89,7 +89,6 @@ public class SavingSystem : MonoBehaviour
             model.InvItemAmounts[i] = CheckItemAmount(inventoryUIScript.inventorySlots[i]);
         }
 
-        print(model.didPlayerPickedUpStarterAxe);
         model.didPlayerPickedUpStarterAxe = playerScript.didPlayerPickedUpStarterAxe;
 
         string json = JsonUtility.ToJson(model);
