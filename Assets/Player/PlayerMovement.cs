@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask craftingTableLayer;
+    public LayerMask starterAxeLayer;
 
     [SerializeField] public GameObject InventoryUI;
 
@@ -40,11 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        /*
-        starterAxeLayer = LayerMask.NameToLayer("StarterAxeLayer");
-        craftingTableLayer = LayerMask.NameToLayer("CraftingTableLayer");
-        */
-
         pickButton.onClick.AddListener(OnPickedItemButtonPressed);
         isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
@@ -74,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
         movePlayer(isGrounded);
         speedControl();
-        // CheckForCraftingTableOpeningReq();
+        CheckForCraftingTableOpeningReq();
     }
 
     private void FixedUpdate()
@@ -127,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         starterAxe.transform.position = starterAxeSpawnPoint.position;
         starterAxe.transform.rotation = starterAxeSpawnPoint.rotation;
         starterAxe.transform.localScale = starterAxeSpawnPoint.localScale;
-        starterAxe.layer = 10;
+        starterAxe.layer = starterAxeLayer;
 
         BoxCollider axeCollider = starterAxe.AddComponent<BoxCollider>();
         axeCollider.size = new Vector3(axeCollider.size.x, axeCollider.size.y, axeCollider.size.z + 2.5f);
@@ -139,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 10)
+        if (other.gameObject.layer == starterAxeLayer)
         {
             pickedItemObject = other.gameObject;
             PickItemCanvas.gameObject.SetActive(true);
@@ -148,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 10) 
+        if (other.gameObject.layer == starterAxeLayer) 
         {
             if (pickedItemObject == other.gameObject)
             {
@@ -175,26 +171,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    /*
     private void CheckForCraftingTableOpeningReq()
     {
         Transform playerCameraPos = transform.Find("CameraPos");
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (Physics.Raycast(playerCameraPos.position, Vector3.forward, out RaycastHit hit, 50f, craftingTableLayer))
+            if (Physics.Raycast(playerCameraPos.position, playerCameraPos.forward, out RaycastHit hit, 50f, craftingTableLayer))
             {
-                print("Yes");
-                print(hit.collider.gameObject.name);
+                CraftingCanvas.gameObject.SetActive(true);
             }
-            else
-            {
-                print("No");
-
-            }
-
         }
 
     }
-    */
 }
