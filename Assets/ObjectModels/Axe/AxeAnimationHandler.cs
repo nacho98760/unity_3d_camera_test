@@ -9,8 +9,11 @@ using UnityEngine.UI;
 public class AxeAnimationHandler : MonoBehaviour
 {   
     public PlayerMovement player;
+    public CameraControls playerCameraControls;
+
     [SerializeField] private TreeSpawningSystem treeSpawningSystem;
     [SerializeField] private GameObject InventoryUI;
+    [SerializeField] private GameObject CraftingUI;
 
     [SerializeField] private InventoryUIScript inventoryUIScript;
 
@@ -38,7 +41,7 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && gameObject.activeSelf && currentAnimation != "Chop" && InventoryUI.activeSelf == false)
+        if (Input.GetMouseButtonDown(0) && gameObject.activeSelf && currentAnimation != "Chop" && playerCameraControls.CheckIfAnyUIIsOpen() == false)
         {
             StartCoroutine(Chop());
         }
@@ -77,12 +80,14 @@ public class AxeAnimationHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.)
         // If currentChopAnimationTime != null, it means that the current animation can only be "Chop". Therefore, its not necessary to check what the current animation is.
         if ((currentChopAnimationTime > 0.65f && currentChopAnimationTime < 0.95f) && canChop)
         {
             StartCoroutine(ChopCooldown());
             ChopAudioComponent.Play();
+
+            if (other.gameObject.GetComponent<HealthComponent>() == null)
+                return;
 
             other.gameObject.GetComponent<HealthComponent>().DamageObject(damagePerHit);
 

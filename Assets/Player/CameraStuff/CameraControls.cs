@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class CameraControls : MonoBehaviour
 {
-
     [SerializeField] private GameObject InventoryUI;
 
-    float sensX = 200f;
-    float sensY = 200f;
+    float sensX = 100f;
+    float sensY = 100f;
 
     public PlayerMovement player;
 
@@ -21,13 +20,38 @@ public class CameraControls : MonoBehaviour
 
     void Update()
     {
-        checkForCursorState();
+        CheckForCursorState();
     }
 
 
-    void checkForCursorState()
+    public bool CheckIfAnyUIIsOpen()
     {
-        if (InventoryUI.activeSelf || player.isPlayerAlive == false || player.PickItemCanvas.gameObject.activeSelf || player.CraftingCanvas.gameObject.activeSelf)
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        bool isAnyUIOpen = false;
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.scene.IsValid())
+            {
+                if (obj.CompareTag("MainUI"))
+                {
+                    if (obj.activeSelf)
+                    {
+                        isAnyUIOpen = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return isAnyUIOpen;
+    }
+
+
+    void CheckForCursorState()
+    {
+        if (player.isPlayerAlive == false || CheckIfAnyUIIsOpen())
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

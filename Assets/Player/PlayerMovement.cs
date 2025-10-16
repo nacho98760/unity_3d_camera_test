@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public CameraControls playerCameraControls;
+
     public LayerMask craftingTableLayer;
     public LayerMask starterAxeLayer;
 
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (InventoryUI.activeSelf || isPlayerAlive == false)
+        if (isPlayerAlive == false || playerCameraControls.CheckIfAnyUIIsOpen())
         {
             movementDirection = Vector3.zero;
         }
