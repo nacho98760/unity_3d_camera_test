@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
     public CameraControls playerCameraControls;
 
     public LayerMask craftingTableLayer;
-    public LayerMask starterAxeLayer;
+    LayerMask PickableObjects;
 
-    [SerializeField] public GameObject InventoryUI;
+    public GameObject InventoryUI;
 
     [SerializeField] private Button pickButton;
     private GameObject pickedItemObject;
@@ -22,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
     public bool didPlayerPickedUpStarterAxe;
     public Transform starterAxeSpawnPoint;
     public GameObject AxeModelPrefab;
-    public Item AxeItem;
+    public Item[] pickableItems;
     public InventoryUIScript inventoryUIScript;
 
-    float movementSpeed = 3f;
+    float movementSpeed = 2f;
     float jumpForce = 4f;
 
     public float playerHeight;
@@ -39,9 +39,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movementDirection;
 
     Rigidbody playerRigidBody;
+
     private void Awake()
     {
         Application.targetFrameRate = 180;
+        PickableObjects = LayerMask.NameToLayer("PickableObjects");
     }
 
     private void Start()
@@ -128,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         starterAxe.transform.position = starterAxeSpawnPoint.position;
         starterAxe.transform.rotation = starterAxeSpawnPoint.rotation;
         starterAxe.transform.localScale = starterAxeSpawnPoint.localScale;
-        starterAxe.layer = starterAxeLayer;
+        starterAxe.layer = PickableObjects;
 
         BoxCollider axeCollider = starterAxe.AddComponent<BoxCollider>();
         axeCollider.size = new Vector3(axeCollider.size.x, axeCollider.size.y, axeCollider.size.z + 2.5f);
@@ -140,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == starterAxeLayer)
+        if (other.gameObject.layer == PickableObjects)
         {
             pickedItemObject = other.gameObject;
             PickItemCanvas.gameObject.SetActive(true);
@@ -149,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == starterAxeLayer) 
+        if (other.gameObject.layer == PickableObjects) 
         {
             if (pickedItemObject == other.gameObject)
             {
@@ -165,14 +167,34 @@ public class PlayerMovement : MonoBehaviour
         if (pickedItemObject == null)
             return;
 
-        inventoryUIScript.AddItem(AxeItem, AxeItem.amountToAddOnInv);
-        inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
-        inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
+        Item itemToAdd = null;
+
+        foreach (Item item in pickableItems)
+        {
+            if (pickedItemObject.name == item.itemName || pickedItemObject.name.StartsWith(item.itemName))
+            {
+                itemToAdd = item;
+                break;
+            }
+        }
+
+        inventoryUIScript.AddItem(itemToAdd, itemToAdd.amountToAddOnInv);
         Destroy(pickedItemObject);
-        didPlayerPickedUpStarterAxe = true;
         PickItemCanvas.gameObject.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (itemToAdd.itemName == "Axe")
+        {
+            CheckIfPickedItemWasAxe();
+        }
+    }
+
+    private void CheckIfPickedItemWasAxe()
+    {
+        inventoryUIScript.Axe.transform.gameObject.SetActive(inventoryUIScript.CheckIfAxeIsEquipped());
+        inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
+        didPlayerPickedUpStarterAxe = true;
     }
 
 

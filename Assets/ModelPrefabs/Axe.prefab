@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 41b80bc3368455d47ae4c5ed4fdab7ad, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -124,12 +124,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128cbc6af5bbc99408ae73b9840e2506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerCameraControls: {fileID: 0}
   treeSpawningSystem: {fileID: 0}
   InventoryUI: {fileID: 0}
+  CraftingUI: {fileID: 0}
   inventoryUIScript: {fileID: 0}
   logItem: {fileID: 11400000, guid: 88177d605a8bea04aba2fca3a55acc50, type: 2}
   currentAnimation: 
   damagePerHit: 10
+  playerCameraHolder: {fileID: 0}
+  playerHealth: {fileID: 0}
+  playerDeathCanvas: {fileID: 0}
 --- !u!65 &4191044014962806507
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,7 +167,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bd0ebc75970148848b8bec51c4390c6e, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: bd0ebc75970148848b8bec51c4390c6e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.89

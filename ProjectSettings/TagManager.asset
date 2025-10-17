@@ -7,6 +7,7 @@ TagManager:
   - CubeTag
   - Trees
   - MainUI
+  - Rocks
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Cubes
   - StarterAxeLayer
   - CraftingTableLayer
-  - 
+  - PickableObjects
   - 
   - 
   - 
