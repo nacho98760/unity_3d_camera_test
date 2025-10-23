@@ -12,9 +12,10 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject InventoryUI;
 
-    [SerializeField] private Button pickButton;
-    private GameObject pickedItemObject;
     public Canvas PickItemCanvas;
+    private GameObject pickedItemObject;
+    private bool canPlayerPickItem = false;
+
     public Canvas CraftingCanvas;
 
     public bool isPlayerAlive;
@@ -48,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        pickButton.onClick.AddListener(OnPickedItemButtonPressed);
         isPlayerAlive = true;
         playerRigidBody = GetComponent<Rigidbody>();
         playerRigidBody.freezeRotation = true;
@@ -78,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer(isGrounded);
         speedControl();
         CheckForCraftingTableOpeningReq();
+
+        CheckIfPlayerPickedUpItem();
     }
 
     private void FixedUpdate()
@@ -142,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        canPlayerPickItem = true;
+
         if (other.gameObject.layer == PickableObjects)
         {
             pickedItemObject = other.gameObject;
@@ -151,6 +155,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        canPlayerPickItem = false;
+
         if (other.gameObject.layer == PickableObjects) 
         {
             if (pickedItemObject == other.gameObject)
@@ -162,7 +168,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnPickedItemButtonPressed()
+    private void CheckIfPlayerPickedUpItem()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && canPlayerPickItem)
+        {
+            OnPickItemKeyPressed();
+        }
+    }
+
+    private void OnPickItemKeyPressed()
     {
         if (pickedItemObject == null)
             return;

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 
 [System.Serializable]
@@ -75,6 +76,13 @@ public class InventoryUIScript : MonoBehaviour
 
             if (slot.transform.childCount > 0)
             {
+                if (item.stackable == false)
+                {
+                    LookForAnEmptySlotOnInv(item);
+                    return;
+
+                }
+
                 InventoryItem inventoryItem = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
 
                 if (inventoryItem.itemName == item.itemName)
@@ -90,15 +98,20 @@ public class InventoryUIScript : MonoBehaviour
         // If there's no instance of that item in any slot, we find an empty slot to place the item
         if (ItemAlreadyPlaced == false)
         {
-            for (int i = 0; i < inventorySlots.Length; i++)
-            {
-                InventorySlot slot = inventorySlots[i];
+            LookForAnEmptySlotOnInv(item);
+        }
+    }
 
-                if (slot.transform.childCount == 0)
-                {
-                    SpawnNewItem(item, slot, item.amountToAddOnInv);
-                    return;
-                }
+    public void LookForAnEmptySlotOnInv(Item item)
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+
+            if (slot.transform.childCount == 0)
+            {
+                SpawnNewItem(item, slot, item.amountToAddOnInv);
+                return;
             }
         }
     }

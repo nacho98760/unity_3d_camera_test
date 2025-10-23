@@ -39,6 +39,8 @@ public class CraftButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
                 inventoryUIScript.SubstractItemAmount(ingredient.item, ingredient.amount);
             }
+
+            inventoryUIScript.ChangeEquippedSlotColorAndResetThePrevious(0);
         }
     }
 

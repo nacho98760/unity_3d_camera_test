@@ -42,6 +42,8 @@ public class SavingSystem : MonoBehaviour
 
         foreach (Item item in itemList)
         {
+            print(item.itemName);
+            print(itemName);
             if (item.itemName == itemName)
             {
                 itemFound = item;
