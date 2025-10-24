@@ -2255,7 +2255,6 @@ MonoBehaviour:
   - {fileID: 1913801158}
   - {fileID: 2006528299}
   inventoryItemPrefab: {fileID: 4782203527790895352, guid: e43866999e927c047a0987487d2000f1, type: 3}
-  ItemAlreadyPlaced: 0
   Axe: {fileID: 1186115914}
   Toolbar: {fileID: 835524456}
   inventorySlotsOnToolbar: []

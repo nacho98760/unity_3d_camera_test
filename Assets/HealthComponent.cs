@@ -21,9 +21,6 @@ public class HealthComponent : MonoBehaviour
 
         OnObjectHit?.Invoke(currentHealth, maxHealth);
 
-        print("Current health: " +  currentHealth.ToString());
-        print(currentHealth);
-
         if (currentHealth <= 0)
         {
             isAlive = false;

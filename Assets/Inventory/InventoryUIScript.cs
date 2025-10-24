@@ -19,7 +19,6 @@ public class InventoryUIScript : MonoBehaviour
 
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
-    public bool ItemAlreadyPlaced = false;
 
     public AxeAnimationHandler Axe;
 
@@ -69,6 +68,7 @@ public class InventoryUIScript : MonoBehaviour
 
     public void AddItem(Item item, int itemAmount)
     {
+        bool ItemAlreadyPlaced = false;
         // We check if there's already an instance of that item placed on any slot
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -76,21 +76,14 @@ public class InventoryUIScript : MonoBehaviour
 
             if (slot.transform.childCount > 0)
             {
-                if (item.stackable == false)
-                {
-                    LookForAnEmptySlotOnInv(item);
-                    return;
-
-                }
-
                 InventoryItem inventoryItem = slot.gameObject.transform.GetComponentInChildren<InventoryItem>();
 
-                if (inventoryItem.itemName == item.itemName)
+                if ((inventoryItem.itemName == item.itemName) && item.stackable)
                 {
                     inventoryItem.amount += itemAmount;
                     inventoryItem.amountText.text = inventoryItem.amount.ToString();
                     ItemAlreadyPlaced = true;
-                    return;
+                    break;
                 }
             }
         }
@@ -98,6 +91,7 @@ public class InventoryUIScript : MonoBehaviour
         // If there's no instance of that item in any slot, we find an empty slot to place the item
         if (ItemAlreadyPlaced == false)
         {
+            print("Looking for a slot");
             LookForAnEmptySlotOnInv(item);
         }
     }
@@ -108,8 +102,11 @@ public class InventoryUIScript : MonoBehaviour
         {
             InventorySlot slot = inventorySlots[i];
 
+            print(slot.name);
+            print(slot.transform.childCount);
             if (slot.transform.childCount == 0)
             {
+                print("Spawned Item");
                 SpawnNewItem(item, slot, item.amountToAddOnInv);
                 return;
             }
