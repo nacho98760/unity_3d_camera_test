@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Rock
+  whereDoesPlayerGetItemFrom: Rock
   amountToAddOnInv: 1
   image: {fileID: 2800000, guid: 427a877b481d878468cbf1e7783a3df2, type: 3}
   type: 1

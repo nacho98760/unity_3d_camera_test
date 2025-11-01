@@ -22,7 +22,6 @@ public class CraftButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             bool doesPlayerHaveItemAndNecessaryAmount = CheckIfPlayerHasIngredient(ingredient);
 
-            print(doesPlayerHaveItemAndNecessaryAmount);
             if (doesPlayerHaveItemAndNecessaryAmount)
             {
                 doesPlayerHaveAllIngredients = true;

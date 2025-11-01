@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    // ----------------------------- Player Movement - START -----------------------------
     private void MovePlayer(bool isGrounded)
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -124,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
             playerRigidBody.linearVelocity = new Vector3(limitedVelocity.x, playerRigidBody.linearVelocity.y, limitedVelocity.z);
         }
     }
+    // ----------------------------- Player Movement - END -----------------------------
 
 
     private void AddStarterAxe()
@@ -142,12 +144,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    // ----------------------------- Pickable Objects - START -----------------------------
     private void OnTriggerEnter(Collider other)
     {
-        canPlayerPickItem = true;
-
         if (other.gameObject.layer == PickableObjects)
         {
+            canPlayerPickItem = true;
             pickedItemObject = other.gameObject;
             PickItemCanvas.gameObject.SetActive(true);
         }
@@ -185,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Item item in pickableItems)
         {
-            if (pickedItemObject.name == item.itemName || pickedItemObject.name.StartsWith(item.itemName))
+            if (pickedItemObject.name.Contains(item.itemName) || pickedItemObject.name.Contains(item.whereDoesPlayerGetItemFrom))
             {
                 itemToAdd = item;
                 break;
@@ -210,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
         inventoryUIScript.CheckAxeAnimationState(inventoryUIScript.CheckIfAxeIsEquipped());
         didPlayerPickedUpStarterAxe = true;
     }
+    // ----------------------------- Pickable Objects - END -----------------------------
 
 
     private void CheckForCraftingTableOpeningReq()

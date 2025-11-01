@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Item : ScriptableObject
 {
     public string itemName;
+    public string whereDoesPlayerGetItemFrom;
     public int amountToAddOnInv;
     public Texture2D image;
     public ItemType type;
